@@ -6,11 +6,11 @@
 
 #SBATCH --nodes=2                  # Request 2 compute nodes
 #SBATCH --tasks-per-node=2         # Request 2 tasks per node
-#SBATCH --mem=64G                  # Request 64 GB of RAM per node
+#SBATCH --mem=32G                  # Request 32 GB of RAM per node
 #SBATCH --cpus-per-task=32         # Request 32 CPU cores per task
 #SBATCH --gres=gpu:1               # Request 1 GPU per node; required to load the Megatron
 #SBATCH --job-name=pile-gpt2bpe    # Set the job name
-#SBATCH --time=02:00:00            # Set the time limit
+#SBATCH --time=48:00:00            # Set the time limit
 #SBATCH --output=logs/slurm-%j.out # Set the output file
 
 # Setup the environment.

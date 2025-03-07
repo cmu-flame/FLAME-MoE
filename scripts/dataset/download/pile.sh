@@ -9,7 +9,7 @@
 #SBATCH --mem=16G                  # Request 16 GB of RAM per node
 #SBATCH --cpus-per-task=2          # Request 2 CPU cores per task
 #SBATCH --job-name=pile            # Set the job name
-#SBATCH --time=00:30:00            # Set the time limit
+#SBATCH --time=48:00:00            # Set the time limit
 #SBATCH --output=logs/slurm-%j.out # Set the output file
 
 # Setup the environment.
