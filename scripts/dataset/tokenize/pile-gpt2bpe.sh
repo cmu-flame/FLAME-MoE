@@ -5,7 +5,7 @@
 # Date: March 7, 2025
 
 #SBATCH --nodes=2                  # Request 2 compute nodes
-#SBATCH --tasks-per-node=4         # Request 4 tasks per node
+#SBATCH --tasks-per-node=2         # Request 2 tasks per node
 #SBATCH --mem=64G                  # Request 64 GB of RAM per node
 #SBATCH --cpus-per-task=32         # Request 32 CPU cores per task
 #SBATCH --gres=gpu:1               # Request 1 GPU per node; required to load the Megatron
