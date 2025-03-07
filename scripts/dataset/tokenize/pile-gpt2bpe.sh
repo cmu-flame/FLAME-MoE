@@ -18,9 +18,13 @@ source devconfig.sh
 export TASK_INDEX=$(mktemp -p $PWD)
 trap "rm -f $TASK_INDEX" EXIT
 
-# Download the GPT2BPETokenizer.
-wget -O $DATASET_DIR/gpt2-vocab.json -q https://huggingface.co/gpt2/resolve/main/vocab.json
-wget -O $DATASET_DIR/gpt2-merges.txt -q https://huggingface.co/gpt2/resolve/main/merges.txt
+# Download the vocabulary files.
+if [ ! -f "$DATASET_DIR/gpt2-vocab.json" ]; then
+    wget -O $DATASET_DIR/gpt2-vocab.json -q https://huggingface.co/gpt2/resolve/main/vocab.json
+fi
+if [ ! -f "$DATASET_DIR/gpt2-merges.txt" ]; then
+    wget -O $DATASET_DIR/gpt2-merges.txt -q https://huggingface.co/gpt2/resolve/main/merges.txt
+fi
 
 # Tokenize the Pile dataset.
 find $DATASET_DIR/pile -type f -name '*.jsonl' >$TASK_INDEX
