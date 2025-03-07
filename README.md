@@ -32,3 +32,12 @@ export MAX_JOBS=32
 pip install .
 popd
 ```
+
+### 1. Prepare the Dataset
+
+**The Pile**
+
+```bash
+sbatch scripts/dataset/download/pile.sh
+sbatch scripts/dataset/tokenize/pile-gpt2bpe.sh
+```

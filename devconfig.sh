@@ -1,7 +1,7 @@
-export DATASET_DIR=$(pwd)/dataset
-export WEIGHTS_DIR=$(pwd)/weights
+export WORKSPACE=$PWD
+export DATASET_DIR=$WORKSPACE/dataset
+export WEIGHTS_DIR=$WORKSPACE/weights
 mkdir -p $DATASET_DIR $WEIGHTS_DIR
 
-export LOGS_DIR=$(pwd)/logs
-export TEMP_DIR=$(pwd)/temp
-mkdir -p $LOGS_DIR $TEMP_DIR
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate MoE

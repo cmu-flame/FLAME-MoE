@@ -1,0 +1,27 @@
+#!/bin/bash
+# Tokenize the Pile dataset using GPT2BPETokenizer.
+
+# Author: Hao Kang <haok@andrew.cmu.edu>
+# Date: March 7, 2025
+
+#SBATCH --nodes=4                  # Request 4 compute nodes
+#SBATCH --tasks-per-node=2         # Request 2 tasks per node
+#SBATCH --mem=64G                  # Request 64 GB of RAM per node
+#SBATCH --cpus-per-task=32         # Request 32 CPU cores per task
+#SBATCH --gpus-per-task=1          # Request 1 GPU per task, unfortunately, required by Megatron
+#SBATCH --job-name=pile-gpt2bpe    # Set the job name
+#SBATCH --time=02:00:00            # Set the time limit
+#SBATCH --output=logs/slurm-%j.out # Set the output file
+
+# Setup the environment.
+source devconfig.sh
+export TASK_INDEX=$(mktemp -p $PWD)
+trap "rm -f $TASK_INDEX" EXIT
+
+# Download the GPT2BPETokenizer.
+wget -O $DATASET_DIR/gpt2-vocab.json -q https://huggingface.co/gpt2/resolve/main/vocab.json
+wget -O $DATASET_DIR/gpt2-merges.txt -q https://huggingface.co/gpt2/resolve/main/merges.txt
+
+# Tokenize the Pile dataset.
+find $DATASET_DIR/pile -type f -name '*.jsonl' >$TASK_INDEX
+srun -W 0 scripts/dataset/tokenize/pile-gpt2bpe_step1.sh

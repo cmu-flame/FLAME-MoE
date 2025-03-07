@@ -1,5 +1,5 @@
-/logs/
-/temp/
-
 /dataset/
 /weights/
+
+/tmp.*
+/logs/slurm-*.out
