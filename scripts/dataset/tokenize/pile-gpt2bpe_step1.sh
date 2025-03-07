@@ -9,7 +9,7 @@ split $TASK_INDEX -n l/$((SLURM_PROCID + 1))/$SLURM_NTASKS | while read -r line;
     echo "Tokenizing $line"
     python tools/preprocess_data.py \
         --input $line \
-        --output-prefix $DATASET_DIR/pile_gpt2bpe/$(basename $line .jsonl) \
+        --output-prefix $DATASET_DIR/pile-gpt2bpe/$(basename $line .jsonl) \
         --tokenizer-type GPT2BPETokenizer \
         --vocab-file $DATASET_DIR/gpt2-vocab.json \
         --merge-file $DATASET_DIR/gpt2-merges.txt \

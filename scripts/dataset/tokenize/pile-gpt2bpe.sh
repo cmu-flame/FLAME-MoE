@@ -17,6 +17,7 @@
 source devconfig.sh
 export TASK_INDEX=$(mktemp -p $PWD)
 trap "rm -f $TASK_INDEX" EXIT
+mkdir -p $DATASET_DIR/pile-gpt2bpe
 
 # Download the vocabulary files.
 if [ ! -f "$DATASET_DIR/gpt2-vocab.json" ]; then
