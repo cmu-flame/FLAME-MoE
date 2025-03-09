@@ -14,5 +14,5 @@ split $TASK_INDEX -n l/$((SLURM_PROCID + 1))/$SLURM_NTASKS | while read -r line;
         --vocab-file $DATASET_DIR/gpt2-vocab.json \
         --merge-file $DATASET_DIR/gpt2-merges.txt \
         --append-eod \
-        --workers 8
+        --workers 32
 done

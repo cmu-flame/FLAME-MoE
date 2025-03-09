@@ -4,10 +4,10 @@
 # Author: Hao Kang <haok@andrew.cmu.edu>
 # Date: March 9, 2025
 
-#SBATCH --nodes=2                   # Request 2 compute nodes
-#SBATCH --tasks-per-node=2          # Request 2 tasks per node
+#SBATCH --nodes=4                   # Request 4 compute nodes
+#SBATCH --tasks-per-node=4          # Request 4 tasks per node
 #SBATCH --mem=32G                   # Request 32 GB of RAM per node
-#SBATCH --cpus-per-task=8           # Request 8 CPU cores per task
+#SBATCH --cpus-per-task=32          # Request 32 CPU cores per task
 #SBATCH --gres=gpu:1                # Request 1 GPU per node; required to load the Megatron
 #SBATCH --job-name=dclm-28B-gpt2bpe # Set the job name
 #SBATCH --time=48:00:00             # Set the time limit
@@ -28,5 +28,5 @@ if [ ! -f "$DATASET_DIR/gpt2-merges.txt" ]; then
 fi
 
 # Tokenize the DCLM-28B dataset.
-find $DATASET_DIR/dclm-28B-gpt2bpe -type f -name '*.jsonl' >$TASK_INDEX
+find $DATASET_DIR/dclm-28B -type f -name '*.jsonl' >$TASK_INDEX
 srun -W 0 scripts/dataset/tokenize/dclm-28B-gpt2bpe_step1.sh
