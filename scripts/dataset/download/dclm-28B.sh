@@ -2,7 +2,7 @@
 # Download the DCLM dataset for the 1B-1x scale, which contains 28B tokens.
 
 # Author: Hao Kang <haok@andrew.cmu.edu>
-# Date: March 6, 2025
+# Date: March 9, 2025
 
 #SBATCH --nodes=4                  # Request 4 compute nodes
 #SBATCH --ntasks-per-node=32       # Run 32 tasks per node

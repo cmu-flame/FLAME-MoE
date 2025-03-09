@@ -46,5 +46,5 @@ sbatch scripts/dataset/tokenize/pile-gpt2bpe.sh
 
 ```bash
 sbatch scripts/dataset/download/dclm-28B.sh
-sbatch scripts/dataset/tokenize/dclm-28B.sh
+sbatch scripts/dataset/tokenize/dclm-28B-gpt2bpe.sh
 ```
