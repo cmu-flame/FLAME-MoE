@@ -41,3 +41,10 @@ popd
 sbatch scripts/dataset/download/pile.sh
 sbatch scripts/dataset/tokenize/pile-gpt2bpe.sh
 ```
+
+**DCLM-28B**
+
+```bash
+sbatch scripts/dataset/download/dclm-28B.sh
+sbatch scripts/dataset/tokenize/dclm-28B.sh
+```
