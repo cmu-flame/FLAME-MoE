@@ -65,10 +65,10 @@ Make sure you have [AWS CLI](https://aws.amazon.com/cli/) installed, as the DCLM
 
 **API Key Setup**
 
-Create a file named `devsecret.env` to store credentials such as the Weights & Biases API key:
+Create a file named `devsecret.env` to store credentials like the following:
 
 ```
-export WANDB_API_KEY=<your_api_key>
+export WANDB_API_KEY=<wandb_api_key>
 ```
 
 ### 1. Prepare the Dataset
