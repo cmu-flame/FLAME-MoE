@@ -4,10 +4,10 @@
 # Author: Hao Kang
 # Date: March 9, 2025
 
-#SBATCH --nodes=1                  # Request 1 compute node
+#SBATCH --nodes=4                  # Request 2 compute nodes
 #SBATCh --tasks-per-node=8         # Request 8 tasks per node
 #SBATCH --cpus-per-task=32         # Request 32 CPU cores per task
-#SBATCH --mem=128G                 # Request 128 GB of RAM per node
+#SBATCH --mem=256G                 # Request 256 GB of RAM per node
 #SBATCH --gres=gpu:8               # Request 8 GPU devices per node
 #SBATCH --job-name=olmoe-1B-7B     # Set the job name
 #SBATCH --time=48:00:00            # Set the time limit

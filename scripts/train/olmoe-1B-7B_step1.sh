@@ -16,7 +16,8 @@ DATASET_PATH=$(find $DATASET_DIR/dclm-28B-olmoe/ -type f -name *.bin |
     xargs -I {} sh -c 'echo -n "$DATASET_DIR/dclm-28B-olmoe/$(basename {} .bin) "' |
         sed 's/ $//')
 
-WEIGHTS_PATH=$WEIGHTS_DIR/olmoe-1B-7B
+PROJECT_NAME=$SLURM_JOB_NAME.$SLURM_JOB_ID
+WEIGHTS_PATH=$WEIGHTS_DIR/$PROJECT_NAME
 
 DISTRIBUTED_ARGS=(
     --nnodes $SLURM_NNODES
@@ -82,7 +83,7 @@ TRAINING_ARGS=(
 MODEL_PARALLEL_ARGS=(
     --tensor-model-parallel-size 1
     --expert-model-parallel-size 8
-    --pipeline-model-parallel-size 1
+    --pipeline-model-parallel-size 4
     --sequence-parallel
     --use-distributed-optimizer
 )
@@ -102,7 +103,7 @@ LOGGING_ARGS=(
 if [ -n "${WANDB_API_KEY}" ]; then
     LOGGING_ARGS+=(
         --wandb-project MoE-Research
-        --wandb-exp-name olmoe-1B-7B
+        --wandb-exp-name $PROJECT_NAME
     )
 fi
 
