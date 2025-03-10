@@ -1,0 +1,7 @@
+/dataset/
+/weights/
+
+/tmp.*
+/logs/slurm-*.out
+
+/devsecret.env
