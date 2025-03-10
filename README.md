@@ -31,6 +31,8 @@ export NVTE_FRAMEWORK=pytorch
 export MAX_JOBS=32
 pip install .
 popd
+
+pip install transformers
 ```
 
 ### 1. Prepare the Dataset
@@ -47,4 +49,5 @@ sbatch scripts/dataset/tokenize/pile-gpt2bpe.sh
 ```bash
 sbatch scripts/dataset/download/dclm-28B.sh
 sbatch scripts/dataset/tokenize/dclm-28B-gpt2bpe.sh
+sbatch scripts/dataset/tokenize/dclm-28B-olmoe.sh
 ```
