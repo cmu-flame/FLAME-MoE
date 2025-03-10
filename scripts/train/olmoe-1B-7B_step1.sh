@@ -90,7 +90,7 @@ MODEL_PARALLEL_ARGS=(
 
 LOGGING_ARGS=(
     --log-interval 1
-    --save-interval 5000
+    --save-interval 20000
     --eval-interval 1000
     --eval-iters 10
     --save $WEIGHTS_PATH
