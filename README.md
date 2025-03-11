@@ -95,3 +95,9 @@ sbatch scripts/dataset/tokenize/dclm-28B-olmoe.sh
 ```bash
 sbatch scripts/train/olmoe-1B-7B.sh
 ```
+
+### 3. Evaluate the Model
+
+```bash
+sbatch scripts/eval/eval.sh
+```
