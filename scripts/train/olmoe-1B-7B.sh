@@ -4,7 +4,7 @@
 # Author: Hao Kang
 # Date: March 9, 2025
 
-#SBATCH --nodes=4                  # Request 2 compute nodes
+#SBATCH --nodes=4                  # Request 4 compute nodes
 #SBATCH --tasks-per-node=8         # Request 8 tasks per node
 #SBATCH --cpus-per-task=32         # Request 32 CPU cores per task
 #SBATCH --mem=256G                 # Request 256 GB of RAM per node
