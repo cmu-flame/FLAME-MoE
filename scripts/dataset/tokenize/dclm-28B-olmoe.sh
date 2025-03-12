@@ -8,7 +8,7 @@
 #SBATCH --tasks-per-node=4         # Request 4 tasks per node
 #SBATCH --mem=32G                  # Request 32 GB of RAM per node
 #SBATCH --cpus-per-task=32         # Request 32 CPU cores per task
-#SBATCH --gres=gpu:1               # Request 1 GPU per node; required to load the Megatron
+#SBATCH --gres=gpu:1               # Request 1 GPU per node (required by Megatron)
 #SBATCH --job-name=dclm-28B-olmoe  # Set the job name
 #SBATCH --time=48:00:00            # Set the time limit
 #SBATCH --output=logs/slurm-%j.out # Set the output file

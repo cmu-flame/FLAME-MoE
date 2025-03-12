@@ -6,8 +6,8 @@
 
 #SBATCH --nodes=4                  # Request 4 compute nodes
 #SBATCH --ntasks-per-node=32       # Run 32 tasks per node
-#SBATCH --mem=16G                  # Request 16 GB of RAM per node
-#SBATCH --cpus-per-task=2          # Request 2 CPU core per task
+#SBATCH --mem=32G                  # Request 32 GB of RAM per node
+#SBATCH --cpus-per-task=1          # Request 1 CPU core per task
 #SBATCH --job-name=dclm-28B        # Set the job name
 #SBATCH --time=48:00:00            # Set the time limit
 #SBATCH --output=logs/slurm-%j.out # Set the output file
@@ -24,5 +24,5 @@ aws s3 ls --recursive $BUCKET_URL | awk -v bucket="s3://commoncrawl" '{print buc
 srun --wait 0 bash scripts/dataset/download/dclm-28B_step1.sh
 
 # Extract the DCLM dataset.
-find $DATASET_DIR/dclm-28B -type f -name "*.jsonl.zstd" | sort >$TASK_INDEX
+find $DATASET_DIR/dclm-28B -type f -name "*.jsonl.zstd" >$TASK_INDEX
 srun --wait 0 bash scripts/dataset/download/dclm-28B_step2.sh
