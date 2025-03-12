@@ -1,5 +1,5 @@
 export WORKSPACE=$PWD
-export DATASET_DIR=$WORKSPACE/dataset_debug
+export DATASET_DIR=$WORKSPACE/dataset
 export WEIGHTS_DIR=$WORKSPACE/weights
 mkdir -p $DATASET_DIR $WEIGHTS_DIR
 
