@@ -1,22 +1,26 @@
 #!/bin/bash
-# Invoked by scripts/train/olmoe-1B-7B.sh
+# Invoked by scripts/train/llama-182M-1.4B.sh
 # Adopted from the following:
-# - https://huggingface.co/allenai/OLMoE-1B-7B-0924/blob/main/config.json
+# - https://github.com/thu-ml/ReMoE/blob/main/scripts/train_llama_182m_moe.sh
 # - https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/transformer/moe/README.md
 
-# Author: Hao Kang
-# Date: March 9, 2025
+# Author: Zichun Yu
+# Date: March 10, 2025
 
-export OMP_NUM_THREADS=8
 export CUDA_DEVICE_MAX_CONNECTIONS=1
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 
-# Generates a list of prefixes for each tokenized chunk and joins the names
-# with spaces, as required by megatron/training/arguments.py
-DATASET_PATH=$(find $DATASET_DIR/dclm-28B-olmoe/ -type f -name *.bin |
-    xargs -I {} sh -c "echo -n \"$DATASET_DIR/dclm-28B-olmoe/\$(basename {} .bin) \"" |
+# 512 * 1k * 60k = 30b tokens.
+TRAIN_ITERS=${2:-"60000"}
+MICRO_BATCH_SIZE=${3:-"16"}
+NUM_EXPERTS=${4:-"8"}
+GRANILARITY=${5:-"1"}
+PROJECT_NAME=${6:-"llama_182m_moe_dclm"}
+
+DATASET_PATH=$(find $DATASET_DIR/dclm-28B-gpt2bpe/ -type f -name *.bin | 
+    xargs -I {} sh -c "echo -n \"$DATASET_DIR/dclm-28B-gpt2bpe/\$(basename {} .bin) \"" |
         sed 's/ $//')
-
-PROJECT_NAME=$SLURM_JOB_NAME.$SLURM_JOB_ID
 WEIGHTS_PATH=$WEIGHTS_DIR/$PROJECT_NAME
 
 DISTRIBUTED_ARGS=(
@@ -30,12 +34,12 @@ DISTRIBUTED_ARGS=(
 
 MODEL_ARGS=(
     --disable-bias-linear
-    --seq-length 4096
-    --max-position-embeddings 4096
-    --num-layers 16
-    --hidden-size 2048
-    --ffn-hidden-size 1024
-    --num-attention-heads 16
+    --seq-length 1024
+    --max-position-embeddings 1024
+    --num-layers 12
+    --hidden-size 768
+    --ffn-hidden-size $((768 * 4))
+    --num-attention-heads 12
     --init-method-std 0.01
     --attention-dropout 0.0
     --hidden-dropout 0.0
@@ -44,36 +48,39 @@ MODEL_ARGS=(
     --swiglu
     --untie-embeddings-and-output-weights
     --group-query-attention
-    --num-query-groups 8
+    --num-query-groups 4
     --no-masked-softmax-fusion
     --no-position-embedding
+    --rotary-base 1000000
+    --use-flash-attn
 )
 
 MOE_ARGS=(
-    --num-experts 64
+    --num-experts $NUM_EXPERTS
+    --moe-router-topk 1
     --moe-router-load-balancing-type aux_loss
-    --moe-router-topk 8
     --moe-aux-loss-coeff 1e-2
+    --moe-token-dispatcher-type alltoall
+    --moe-router-pre-softmax
     --moe-grouped-gemm
+    --moe-layer-recompute
 )
 
 DATA_ARGS=(
     --tokenizer-type HuggingFaceTokenizer
-    --tokenizer-model allenai/OLMoE-1B-7B-0924
+    --tokenizer-model openai-community/gpt2
     --data-path $DATASET_PATH
     --split 90,5,5
 )
 
 TRAINING_ARGS=(
-    --micro-batch-size 1
-    --global-batch-size 128
-    --lr 1e-4
-    --train-iters 60000
-    --lr-decay-iters 38400
+    --micro-batch-size $MICRO_BATCH_SIZE
+    --global-batch-size 512
+    --lr 5e-4
+    --train-iters $TRAIN_ITERS
     --lr-decay-style cosine
-    --min-lr 1.0e-5
-    --weight-decay 0.1
-    --lr-warmup-iters 60
+    --min-lr 5e-5
+    --lr-warmup-fraction 0.01
     --clip-grad 1.0
     --bf16
     --overlap-grad-reduce
@@ -82,27 +89,27 @@ TRAINING_ARGS=(
 
 MODEL_PARALLEL_ARGS=(
     --tensor-model-parallel-size 1
-    --expert-model-parallel-size 8
-    --pipeline-model-parallel-size 4
-    --sequence-parallel
+    --pipeline-model-parallel-size 1
+    --expert-model-parallel-size 1
     --use-distributed-optimizer
+    --sequence-parallel
 )
 
 LOGGING_ARGS=(
-    --log-interval 1
-    --save-interval 20000
+    --log-interval 10
+    --log-throughput 
+    --save-interval 5000
     --eval-interval 1000
-    --eval-iters 10
+    --eval-iters 100
     --save $WEIGHTS_PATH
+    --ckpt-format torch
     --load $WEIGHTS_PATH
     --tensorboard-dir "${WEIGHTS_PATH}/tensorboard"
-    --no-load-optim
-    --no-load-rng
 )
 
 if [ -n "${WANDB_API_KEY}" ]; then
     LOGGING_ARGS+=(
-        --wandb-project MoE-Research
+        --wandb-project "MoE-Pretraining"
         --wandb-exp-name $PROJECT_NAME
     )
 fi
