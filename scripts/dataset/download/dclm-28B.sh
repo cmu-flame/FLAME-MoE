@@ -5,7 +5,7 @@
 # Date: March 9, 2025
 
 #SBATCH --nodes=4                  # Request 4 compute nodes
-#SBATCH --ntasks-per-node=32       # Run 32 tasks per node
+#SBATCH --ntasks-per-node=32       # Request 32 tasks per node
 #SBATCH --mem=32G                  # Request 32 GB of RAM per node
 #SBATCH --cpus-per-task=1          # Request 1 CPU core per task
 #SBATCH --job-name=dclm-28B        # Set the job name
