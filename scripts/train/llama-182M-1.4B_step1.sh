@@ -61,8 +61,6 @@ MOE_ARGS=(
     --moe-router-load-balancing-type aux_loss
     --moe-aux-loss-coeff 1e-2
     --moe-token-dispatcher-type alltoall
-    --overlap-param-gather
-    --overlap-grad-reduce
     --moe-router-pre-softmax
     --moe-grouped-gemm
     --moe-layer-recompute
@@ -85,6 +83,8 @@ TRAINING_ARGS=(
     --lr-warmup-fraction 0.01
     --clip-grad 1.0
     --bf16
+    --overlap-grad-reduce
+    --overlap-param-gather
 )
 
 MODEL_PARALLEL_ARGS=(

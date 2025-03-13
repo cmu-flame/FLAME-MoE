@@ -80,7 +80,7 @@ sbatch scripts/dataset/download/pile.sh
 sbatch scripts/dataset/tokenize/pile-gpt2bpe.sh
 ```
 
-**DCLM-28B**
+**DCLM-28B (Recommended)**
 
 ```bash
 sbatch scripts/dataset/download/dclm-28B.sh
@@ -94,6 +94,12 @@ sbatch scripts/dataset/tokenize/dclm-28B-olmoe.sh
 
 ```bash
 sbatch scripts/train/olmoe-1B-7B.sh
+```
+
+**llama-182M-1.4B**
+
+```bash
+sbatch scripts/train/llama-182M-1.4B.sh
 ```
 
 ### 3. Evaluate the Model

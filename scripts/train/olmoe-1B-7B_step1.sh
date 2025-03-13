@@ -13,7 +13,7 @@ export CUDA_DEVICE_MAX_CONNECTIONS=1
 # Generates a list of prefixes for each tokenized chunk and joins the names
 # with spaces, as required by megatron/training/arguments.py
 DATASET_PATH=$(find $DATASET_DIR/dclm-28B-olmoe/ -type f -name *.bin |
-    xargs -I {} sh -c 'echo -n "$DATASET_DIR/dclm-28B-olmoe/$(basename {} .bin) "' |
+    xargs -I {} sh -c "echo -n \"$DATASET_DIR/dclm-28B-olmoe/\$(basename {} .bin) \"" |
         sed 's/ $//')
 
 PROJECT_NAME=$SLURM_JOB_NAME.$SLURM_JOB_ID
