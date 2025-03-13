@@ -20,7 +20,7 @@ mkdir -p $DATASET_DIR/pile
 
 # Download the Pile dataset.
 HOSTING=https://huggingface.co/datasets/monology/pile-uncopyrighted
-for i in $(seq -w 00 15); do
+for i in $(seq -w 08 10); do
     echo $HOSTING/resolve/main/train/$i.jsonl.zst >>$TASK_INDEX
 done
 srun -W 0 scripts/dataset/download/pile_step1.sh
