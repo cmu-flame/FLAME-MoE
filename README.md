@@ -26,7 +26,7 @@ conda activate MoE
 
 **Install Dependencies**
 
-Install required dependencies for Megatron-LM:
+Install Megatron-LM:
 
 ```bash
 pip install -r Megatron-LM/requirements/pytorch_24.10/requirements.txt
@@ -81,13 +81,6 @@ export WANDB_API_KEY=<wandb_api_key>
 
 ### 1. Prepare the Dataset
 
-**The Pile**
-
-```bash
-sbatch scripts/dataset/download/pile.sh
-sbatch scripts/dataset/tokenize/pile-gpt2bpe.sh
-```
-
 **DCLM-28B (Recommended)**
 
 ```bash
@@ -96,9 +89,16 @@ sbatch scripts/dataset/tokenize/dclm-28B-gpt2bpe.sh
 sbatch scripts/dataset/tokenize/dclm-28B-olmoe.sh
 ```
 
+**The Pile**
+
+```bash
+sbatch scripts/dataset/download/pile.sh
+sbatch scripts/dataset/tokenize/pile-gpt2bpe.sh
+```
+
 ### 2. Train the Model
 
-**OLMoE-1B-7B**
+**olmoe-1B-7B**
 
 ```bash
 sbatch scripts/train/olmoe-1B-7B.sh
