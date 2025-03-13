@@ -5,7 +5,7 @@
 # Date: March 6, 2025
 
 #SBATCH --nodes=4                  # Request 4 compute nodes
-#SBATCH --ntasks-per-node=8        # Request 8 tasks per node
+#SBATCH --ntasks-per-node=4        # Request 4 tasks per node
 #SBATCH --mem=32G                  # Request 32 GB of RAM per node
 #SBATCH --cpus-per-task=1          # Request 1 CPU core per task
 #SBATCH --job-name=pile            # Set the job name
@@ -20,7 +20,7 @@ mkdir -p $DATASET_DIR/pile
 
 # Download the Pile dataset.
 HOSTING=https://huggingface.co/datasets/monology/pile-uncopyrighted
-for i in $(seq -w 00 29); do
+for i in $(seq -w 00 15); do
     echo $HOSTING/resolve/main/train/$i.jsonl.zst >>$TASK_INDEX
 done
 srun -W 0 scripts/dataset/download/pile_step1.sh
