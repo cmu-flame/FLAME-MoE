@@ -53,6 +53,14 @@ pip install .
 popd
 ```
 
+Install Language Model Evaluation Harness:
+
+```bash
+pushd lm-evaluation-harness
+pip install -e .
+popd
+```
+
 Additional dependencies:
 
 ```bash
