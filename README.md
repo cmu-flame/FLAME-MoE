@@ -1,6 +1,6 @@
 # MoE Research
 
-This repository contains research and training pipelines for Mixture of Experts (MoE) models. Follow the steps below to set up your environment, prepare datasets, and train models.
+This repository provides research and training pipelines for Mixture of Experts (MoE) models. The MoE models enable efficient learning by leveraging a sparse selection of experts. Follow the instructions below to set up your environment, prepare datasets, train MoE models, and evaluate their performance.
 
 ## Quickstart Guide
 
@@ -81,19 +81,12 @@ export WANDB_API_KEY=<wandb_api_key>
 
 ### 1. Prepare the Dataset
 
-**DCLM-28B (Recommended)**
+**DCLM-28B**
 
 ```bash
 sbatch scripts/dataset/download/dclm-28B.sh
 sbatch scripts/dataset/tokenize/dclm-28B-gpt2bpe.sh
 sbatch scripts/dataset/tokenize/dclm-28B-olmoe.sh
-```
-
-**The Pile**
-
-```bash
-sbatch scripts/dataset/download/pile.sh
-sbatch scripts/dataset/tokenize/pile-gpt2bpe.sh
 ```
 
 ### 2. Train the Model
