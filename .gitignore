@@ -2,6 +2,7 @@
 /weights/
 
 /tmp.*
-/logs/slurm-*.out
+/logs
+/results
 
 /devsecret.env

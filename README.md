@@ -1,6 +1,6 @@
 # MoE Research
 
-This repository contains research and training pipelines for Mixture of Experts (MoE) models. Follow the steps below to set up your environment, prepare datasets, and train models.
+This repository provides research and training pipelines for Mixture of Experts (MoE) models. The MoE models enable efficient learning by leveraging a sparse selection of experts. Follow the instructions below to set up your environment, prepare datasets, train MoE models, and evaluate their performance.
 
 ## Quickstart Guide
 
@@ -26,7 +26,7 @@ conda activate MoE
 
 **Install Dependencies**
 
-Install required dependencies for Megatron-LM:
+Install Megatron-LM:
 
 ```bash
 pip install -r Megatron-LM/requirements/pytorch_24.10/requirements.txt
@@ -53,6 +53,14 @@ pip install .
 popd
 ```
 
+Install Language Model Evaluation Harness:
+
+```bash
+pushd lm-evaluation-harness
+pip install -e .
+popd
+```
+
 Additional dependencies:
 
 ```bash
@@ -73,13 +81,6 @@ export WANDB_API_KEY=<wandb_api_key>
 
 ### 1. Prepare the Dataset
 
-**The Pile**
-
-```bash
-sbatch scripts/dataset/download/pile.sh
-sbatch scripts/dataset/tokenize/pile-gpt2bpe.sh
-```
-
 **DCLM-28B**
 
 ```bash
@@ -90,8 +91,20 @@ sbatch scripts/dataset/tokenize/dclm-28B-olmoe.sh
 
 ### 2. Train the Model
 
-**OLMoE-1B-7B**
+**olmoe-1B-7B**
 
 ```bash
 sbatch scripts/train/olmoe-1B-7B.sh
+```
+
+**llama-182M-1.4B**
+
+```bash
+sbatch scripts/train/llama-182M-1.4B.sh
+```
+
+### 3. Evaluate the Model
+
+```bash
+sbatch scripts/eval/eval.sh
 ```
