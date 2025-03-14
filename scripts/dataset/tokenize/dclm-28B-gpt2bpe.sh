@@ -19,14 +19,6 @@ export TASK_INDEX=$(mktemp -p $PWD)
 trap "rm -f $TASK_INDEX" EXIT
 mkdir -p $DATASET_DIR/dclm-28B-gpt2bpe
 
-# Download the vocabulary files.
-if [ ! -f "$DATASET_DIR/gpt2-vocab.json" ]; then
-    wget -O $DATASET_DIR/gpt2-vocab.json -q https://huggingface.co/gpt2/resolve/main/vocab.json
-fi
-if [ ! -f "$DATASET_DIR/gpt2-merges.txt" ]; then
-    wget -O $DATASET_DIR/gpt2-merges.txt -q https://huggingface.co/gpt2/resolve/main/merges.txt
-fi
-
 # Tokenize the DCLM-28B dataset.
 find $DATASET_DIR/dclm-28B -type f -name '*.jsonl' >$TASK_INDEX
 srun -W 0 scripts/dataset/tokenize/dclm-28B-gpt2bpe_step1.sh

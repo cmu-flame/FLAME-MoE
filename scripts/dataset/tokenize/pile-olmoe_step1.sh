@@ -1,5 +1,5 @@
 #!/bin/bash
-# Invoked by scripts/dataset/tokenize/dclm-28B-olmoe.sh
+# Invoked by scripts/dataset/tokenize/pile-olmoe.sh
 
 # Author: Hao Kang <haok@andrew.cmu.edu>
 # Date: March 9, 2025
@@ -9,7 +9,7 @@ retry() {
         echo "Tokenizing $1 (Attempt $i of 3)"
         python tools/preprocess_data.py \
             --input $1 \
-            --output-prefix $DATASET_DIR/dclm-28B-olmoe/$(basename $1 .jsonl) \
+            --output-prefix $DATASET_DIR/pile-olmoe/$(basename $1 .jsonl) \
             --tokenizer-type HuggingFaceTokenizer \
             --tokenizer-model allenai/OLMoE-1B-7B-0924 \
             --append-eod \

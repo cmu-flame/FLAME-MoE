@@ -5,9 +5,9 @@
 # Date: March 6, 2025
 
 #SBATCH --nodes=4                  # Request 4 compute nodes
-#SBATCH --tasks-per-node=2         # Request 2 tasks per node
-#SBATCH --mem=16G                  # Request 16 GB of RAM per node
-#SBATCH --cpus-per-task=2          # Request 2 CPU cores per task
+#SBATCH --ntasks-per-node=4        # Request 4 tasks per node
+#SBATCH --mem=32G                  # Request 32 GB of RAM per node
+#SBATCH --cpus-per-task=1          # Request 1 CPU core per task
 #SBATCH --job-name=pile            # Set the job name
 #SBATCH --time=48:00:00            # Set the time limit
 #SBATCH --output=logs/slurm-%j.out # Set the output file
