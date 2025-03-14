@@ -2,6 +2,12 @@
 
 This repository provides research and training pipelines for Mixture of Experts (MoE) models. The MoE models enable efficient learning by leveraging a sparse selection of experts. Follow the instructions below to set up your environment, prepare datasets, train MoE models, and evaluate their performance.
 
+## TODOs
+
+- [ ] DualPipe
+- [ ] DeepGEMM
+- [x] DeepEP, already integrated by [Megatron-LM](https://github.com/NVIDIA/Megatron-LM/tree/main/megatron/core/transformer/moe#leverage-deepseeks-deepep-for-high-performance-cross-node-token-dispatching).
+
 ## Quickstart Guide
 
 ### 0. Setup the Environment
