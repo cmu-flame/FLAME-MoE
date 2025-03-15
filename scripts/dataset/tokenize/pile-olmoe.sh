@@ -20,5 +20,5 @@ trap "rm -f $TASK_INDEX" EXIT
 mkdir -p $DATASET_DIR/pile-olmoe
 
 # Tokenize the Pile dataset.
-find $DATASET_DIR/pile-olmoe -type f -name '*.jsonl' >$TASK_INDEX
+find $DATASET_DIR/pile -type f -name '*.jsonl' >$TASK_INDEX
 srun -W 0 scripts/dataset/tokenize/pile-olmoe_step1.sh
