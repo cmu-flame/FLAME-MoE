@@ -1,5 +1,6 @@
 #!/bin/bash
-# This script was generated with the assistance of GPT-4.
+# This script analyzes log files to report median TFLOPS and elapsed time per iteration.
+# It was generated with the assistance of GPT-4.
 
 # Check if a file argument is provided
 if [ $# -ne 1 ]; then
