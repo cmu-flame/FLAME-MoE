@@ -1,4 +1,7 @@
 #!/bin/bash
+# This script is adapted from the following sources:
+# - https://github.com/thu-ml/ReMoE/blob/main/scripts/train_llama_182m_moe.sh
+# - https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/transformer/moe/README.md
 # For a comprehensive list of all available arguments, refer to:
 # - https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/training/arguments.py
 
