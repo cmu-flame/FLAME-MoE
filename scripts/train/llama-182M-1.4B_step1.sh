@@ -26,6 +26,7 @@ DATA_ARGS=(
     --tokenizer-type HuggingFaceTokenizer
     --tokenizer-model openai-community/gpt2
     --data-path $DATA_PATH
+    --data-cache-path /tmp
     --split 90,5,5
 )
 
