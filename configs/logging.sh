@@ -13,4 +13,5 @@ LOG_ARGS=(
     --wandb-save-dir $WEIGHTS_PATH
     --wandb-project "MoE-Research"
     --wandb-exp-name $PROJECT_NAME
+    --tensorboard-dir $WEIGHTS_PATH
 )
