@@ -10,7 +10,7 @@ LOG_ARGS=(
     --load $WEIGHTS_PATH
     --eval-interval 1000
     --eval-iters 100
-    --wandb-save-dir $WEIGHTS_PATH/wandb
+    --wandb-save-dir $WEIGHTS_PATH
     --wandb-project "MoE-Research"
     --wandb-exp-name $PROJECT_NAME
 )
