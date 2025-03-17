@@ -12,17 +12,17 @@
 #SBATCH --mem=512G                    # Request 512 GB of RAM per node
 #SBATCH --time=2-00:00:00             # Set the time limit
 
-# Define the run to evaluate.
-PROJECT_NAME="llama-182M-1.4B.13794"
-WEIGHTS_PATH=$WEIGHTS_DIR/$PROJECT_NAME
-source configs/model/llama-182M-1.4B.sh
-
 # Setup the environment.
 source devconfig.sh
 source devsecret.env
 export CUDA_DEVICE_MAX_CONNECTIONS=1
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 export HF_DATASETS_TRUST_REMOTE_CODE=true
+
+# Define the run to evaluate.
+PROJECT_NAME="llama-182M-1.4B.13794"
+WEIGHTS_PATH=$WEIGHTS_DIR/$PROJECT_NAME
+source configs/model/llama-182M-1.4B.sh
 
 cd lm-evaluation-harness && PYTHONPATH=$WORKSPACE/Megatron-LM torchrun \
     --nproc-per-node=1 --master_addr=localhost --master_port=6000 -m lm_eval \
