@@ -20,7 +20,7 @@ export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 export HF_DATASETS_TRUST_REMOTE_CODE=true
 
 # Define the run to evaluate.
-PROJECT_NAME="llama-182M-1.4B.13794"
+PROJECT_NAME="llama-182M-1.4B.13910"
 WEIGHTS_PATH=$WEIGHTS_DIR/$PROJECT_NAME
 source configs/model/llama-182M-1.4B.sh
 
@@ -34,7 +34,7 @@ cd lm-evaluation-harness && PYTHONPATH=$WORKSPACE/Megatron-LM torchrun \
     --load $WEIGHTS_PATH \
     --model megatron_lm \
     --tasks "arc_easy,arc_challenge,boolq,hellaswag,winogrande,piqa,race,lambada_openai" \
-    --output_path $WORKSPACE/results/$PROJECT_NAME \
+    --output_path $RESULTS_DIR/$PROJECT_NAME \
     --batch_size 16 \
     --tokenizer-type HuggingFaceTokenizer \
     --tokenizer-model openai-community/gpt2
