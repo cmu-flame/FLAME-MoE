@@ -25,7 +25,6 @@ DATA_ARGS=(
     --tokenizer-type HuggingFaceTokenizer
     --tokenizer-model openai-community/gpt2
     --data-path $(find $DATASET_PATH -type f -name '*.bin' -exec sh -c 'printf "1.0 %s " "${1%.bin}"' _ {} \; | sed 's/ $//')
-    --data-cache-path $(mktemp -d)
     --split 90,5,5
 )
 
