@@ -1,8 +1,8 @@
-/dataset/
-/weights/
+/dataset
+/weights
+/results
 
 /tmp.*
 /logs
-/results
 
 /devsecret.env
