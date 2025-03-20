@@ -8,7 +8,7 @@
 #SBATCH --output=logs/olmoe-%j.log # Set the output file
 #SBATCH --time=2-00:00:00          # Set the time limit
 
-#SBATCH --nodes=2                  # Request 2 compute nodes
+#SBATCH --nodes=4                  # Request 4 compute nodes
 #SBATCH --gres=gpu:8               # Request 8 GPU devices per node
 #SBATCH --tasks-per-node=8         # Request 8 tasks per node
 #SBATCH --cpus-per-task=16         # Request 16 CPU cores per task
