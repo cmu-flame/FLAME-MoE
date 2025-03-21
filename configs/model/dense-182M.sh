@@ -1,17 +1,16 @@
 #!/bin/bash
 # This script is adapted from the following sources:
-# - https://huggingface.co/EleutherAI/pythia-1.4b/blob/main/config.json
-# - https://arxiv.org/pdf/2304.01373
+# - https://github.com/thu-ml/ReMoE/blob/main/scripts/train_llama_182m_dense.sh
 # - https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/transformer/moe/README.md
 # For a comprehensive list of all available arguments, refer to:
 # - https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/training/arguments.py
 
 MODEL_ARGS=(
     # Model Architecture & General Configuration
-    --num-layers 24
-    --hidden-size 2048
-    --ffn-hidden-size 8192
-    --num-attention-heads 16
+    --num-layers 12
+    --hidden-size 768
+    --ffn-hidden-size 3072
+    --num-attention-heads 12
     --untie-embeddings-and-output-weights
 
     # Sequence & Positional Embeddings
