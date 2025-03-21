@@ -112,5 +112,5 @@ sbatch scripts/train/llama-182M-1.4B.sh
 ### 3. Evaluate the Model
 
 ```bash
-sbatch scripts/eval/eval.sh
+sbatch scripts/evaluate.sh
 ```
