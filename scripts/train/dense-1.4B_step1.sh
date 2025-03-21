@@ -1,5 +1,5 @@
 #!/bin/bash
-# Invoked by scripts/train/pythia-1.4B.sh
+# Invoked by scripts/train/dense-1.4B.sh
 # This script is adapted from the following sources:
 # - https://huggingface.co/EleutherAI/pythia-1.4b/blob/main/config.json
 # - https://arxiv.org/pdf/2304.01373
@@ -18,8 +18,8 @@ PROJECT_NAME=$SLURM_JOB_NAME.$SLURM_JOB_ID
 DATASET_PATH=$DATASET_DIR/dclm-28B-gpt2bpe
 WEIGHTS_PATH=$WEIGHTS_DIR/$PROJECT_NAME
 
-source configs/model/pythia-1.4B.sh
-source configs/infra/pythia-1.4B.sh
+source configs/model/dense-1.4B.sh
+source configs/infra/dense-1.4B.sh
 source configs/logging.sh
 
 DATA_ARGS=(
