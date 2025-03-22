@@ -20,9 +20,9 @@ export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 export HF_DATASETS_TRUST_REMOTE_CODE=true
 
 # Define the run to evaluate.
-PROJECT_NAME="llama-182M-1.4B.13910"
+PROJECT_NAME="dense-1.4B.15118"
 WEIGHTS_PATH=$WEIGHTS_DIR/$PROJECT_NAME
-source configs/model/llama-182M-1.4B.sh
+source configs/model/dense-1.4B.sh
 
 cd lm-evaluation-harness && PYTHONPATH=$WORKSPACE/Megatron-LM torchrun \
     --nproc-per-node=1 --master_addr=localhost --master_port=6000 -m lm_eval \
