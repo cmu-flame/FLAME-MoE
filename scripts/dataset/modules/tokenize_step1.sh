@@ -1,6 +1,9 @@
 #!/bin/bash
 # Invoked by scripts/dataset/tokenize.sh.
 
+# Author: Hao Kang
+# Date: March 25, 2025
+
 tokenize() {
     source devconfig.sh
     source devsecret.env
