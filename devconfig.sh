@@ -1,4 +1,4 @@
-export WORKSPACE=$PWD
+export WORKSPACE=/home/haok/MoE-Research
 export DATASET_DIR=$WORKSPACE/dataset
 export WEIGHTS_DIR=$WORKSPACE/weights
 export RESULTS_DIR=$WORKSPACE/results
