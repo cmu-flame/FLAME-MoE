@@ -9,11 +9,11 @@
 #SBATCH --job-name=tokenize
 #SBATCH --output=logs/%x-%A/subtask-%a.log
 
-#SBATCH --array=0-1
+#SBATCH --array=0-3
 #SBATCH --time=2-00:00:00
 #SBATCH --partition=preempt
 
-#SBATCH --ntasks-per-node=4
+#SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=24
 #SBATCH --gres=gpu:1
 #SBATCH --mem=128G
