@@ -1,0 +1,15 @@
+site_name: MoE Research
+
+nav:
+  - Home: index.md
+  - Dataset: dataset.md
+
+theme:
+  name: material
+  features:
+    - content.code.copy
+
+docs_dir: wiki
+site_dir: docs
+
+repo_url: https://github.com/cxcscmu/MoE-Research
