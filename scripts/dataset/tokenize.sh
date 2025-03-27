@@ -10,7 +10,7 @@
 #SBATCH --time=2-00:00:00
 #SBATCH --partition=preempt
 
-#SBATCH --nodes=2
+#SBATCH --nodes=4
 #SBATCH --ntasks-per-node=2
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=24
