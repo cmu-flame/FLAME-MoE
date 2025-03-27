@@ -2,7 +2,7 @@
 
 ## Download
 
-**DCLM-28B**
+### DCLM-28B
 
 ```bash
 sbatch scripts/dataset/download.sh dclm28b
