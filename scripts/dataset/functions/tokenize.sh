@@ -51,7 +51,10 @@ tokenize() {
     # Upload the tokenized files to GCS (max 3 attempts)
     for i in {1..3}; do
         echo "Uploading tokenized files to GCS (Attempt $i of 3)"
-        gcloud storage cp ${file%.jsonl}.bin ${file%.jsonl}.idx $GCPBUCKET/$SAVE_PATH > /dev/null 2>&1 && break
+        gcloud storage cp \
+            ${file%.jsonl}_text_document.bin \
+            ${file%.jsonl}_text_document.idx \
+            $GCPBUCKET/$SAVE_PATH > /dev/null 2>&1 && break
         echo "Failed to upload tokenized files, retrying..." && sleep 5
         if [ $i -eq 3 ]; then
             echo "ERROR: Failed to upload tokenized files after 3 attempts." >&2
