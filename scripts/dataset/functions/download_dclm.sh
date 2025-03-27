@@ -20,14 +20,22 @@ download() {
         echo "Downloading $link (Attempt $i of 3)"
         aws s3 cp $link $file > /dev/null 2>&1 && break
         echo "Failed to download $link, retrying..." && sleep 5
-    done || { echo "ERROR: Failed to download $link after 3 attempts." >&2; return 1; }
+        if [ $i -eq 3 ]; then
+            echo "ERROR: Failed to download $link after 3 attempts." >&2
+            return 1
+        fi
+    done
 
     # Extract .zstd file (max 3 attempts)
     for i in {1..3}; do
         echo "Extracting $file (Attempt $i of 3)"
         unzstd $file > /dev/null 2>&1 && rm -f $file && break
         echo "Failed to extract $file, retrying..." && sleep 5
-    done || { echo "ERROR: Failed to extract $file after 3 attempts." >&2; return 1; }
+        if [ $i -eq 3 ]; then
+            echo "ERROR: Failed to extract $file after 3 attempts." >&2
+            return 1
+        fi
+    done
 
     # Upload extracted file to GCS (max 3 attempts)
     file=${file%.zstd}
@@ -35,7 +43,11 @@ download() {
         echo "Uploading $file (Attempt $i of 3)"
         gcloud storage cp $file $GCPBUCKET/dataset/dclm28b/ > /dev/null 2>&1 && break
         echo "Failed to upload $file, retrying..." && sleep 5
-    done || { echo "ERROR: Failed to upload $file after 3 attempts." >&2; return 1; }
+        if [ $i -eq 3 ]; then
+            echo "ERROR: Failed to upload $file after 3 attempts." >&2
+            return 1
+        fi
+    done
 
     # Mark task as completed
     > $task
