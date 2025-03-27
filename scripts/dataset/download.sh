@@ -18,7 +18,8 @@
 if [ -z $1 ]; then
     echo "Usage: scripts/dataset/download.sh <dataset>"
     echo "Arguments:"
-    echo "    <dataset>: The dataset to download. Options: dclm28b"
+    echo "    <dataset>: The dataset to download. Options are:"
+    echo "        - 'dclm28b': The DCLM-28B dataset."
     exit 1
 fi
 

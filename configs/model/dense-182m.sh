@@ -1,4 +1,6 @@
 #!/bin/bash
+#  Definition for the dense-182m model.
+
 # This script is adapted from the following sources:
 # - https://github.com/thu-ml/ReMoE/blob/main/scripts/train_llama_182m_dense.sh
 # - https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/transformer/moe/README.md
