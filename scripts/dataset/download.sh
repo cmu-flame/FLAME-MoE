@@ -45,7 +45,7 @@ download_dclm28b() {
         echo $file >> $task
     done
     # Dispatch the tasks to the nodes.
-    srun -W 0 scripts/dataset/functions/download_dclm.sh
+    srun -W 0 scripts/dataset/functions/download_dclm_step1.sh
 }
 
 case $1 in
