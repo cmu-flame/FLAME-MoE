@@ -1,9 +1,9 @@
 #!/bin/bash
-# Download and extract the DCLM dataset from S3, then upload to GCS.
+# Download and extract the DCLM dataset from S3.
 # Invoked by scripts/dataset/download.sh
 
 # Author: Hao Kang
-# Date: March 26, 2025
+# Date: March 9, 2025
 
 download() {
     task=$1
@@ -37,17 +37,10 @@ download() {
         fi
     done
 
-    # Upload extracted file to GCS (max 3 attempts)
+    # Move the extracted file to the GCP mount
     file=${file%.zstd}
-    for i in {1..3}; do
-        echo "Uploading $file (Attempt $i of 3)"
-        gcloud storage cp $file $GCPBUCKET/dataset/dclm28b/ > /dev/null 2>&1 && break
-        echo "Failed to upload $file, retrying..." && sleep 5
-        if [ $i -eq 3 ]; then
-            echo "ERROR: Failed to upload $file after 3 attempts." >&2
-            return 1
-        fi
-    done
+    mkdir -p $GCP_MOUNT/dataset/$DATASET/
+    mv $file $GCP_MOUNT/dataset/$DATASET/
 
     # Mark task as completed
     > $task
@@ -55,7 +48,7 @@ download() {
 
 export -f download
 
-# Process task files with file locking to avoid conflicts
-find $WORKSPACE -type f -name "*.task" | while read -r line; do
+# Process task files with file locking to avoid conflicts.
+find $NFS_MOUNT -type f -name "*.task" | while read -r line; do
     flock -n $line -c "download $line" || true
 done

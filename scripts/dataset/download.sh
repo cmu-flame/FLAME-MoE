@@ -3,7 +3,7 @@
 # Usage: scripts/dataset/download.sh <dataset>
 
 # Author: Hao Kang
-# Date: March 26, 2025
+# Date: March 9, 2025
 
 #SBATCH --job-name=download
 #SBATCH --output=logs/%x-%j.log
@@ -23,25 +23,21 @@ if [ -z $1 ]; then
     exit 1
 fi
 
-# Set up the runtime environment
+export DATASET=$1
+
 source devconfig.sh
-source devsecret.env
-export WORKSPACE=$WORKSPACE/slurm-$SLURM_JOB_ID
-mkdir -p $WORKSPACE
-export DISKSPACE=$DISKSPACE/slurm-$SLURM_JOB_ID
-mkdir -p $DISKSPACE
-trap "rm -rf $WORKSPACE $DISKSPACE" EXIT
+source devsecret.sh
+trap "rm -rf $NFS_MOUNT $SSD_MOUNT" EXIT
 
 download_dclm28b() {
-    # Discover the files in the S3 bucket and create task files.
     # Each task file contains the S3 link and the local file path.
     prefix=s3://commoncrawl/contrib/datacomp/DCLM-baseline/global-shard_03_of_10/local-shard_1_of_10/
     aws s3 ls $prefix | while read -r line; do
         name=$(echo $line | awk '{print $4}')
         link=$prefix$name
         name=gs0310-ls110_$name
-        file=$DISKSPACE/$name
-        task=$WORKSPACE/$name.task
+        file=$SSD_MOUNT/$name
+        task=$NFS_MOUNT/$name.task
         echo $link >> $task
         echo $file >> $task
     done
@@ -49,7 +45,7 @@ download_dclm28b() {
     srun -W 0 scripts/dataset/modules/download_dclm_step1.sh
 }
 
-case $1 in
+case $DATASET in
     dclm28b)
         download_dclm28b
         ;;

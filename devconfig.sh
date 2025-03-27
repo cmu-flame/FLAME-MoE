@@ -1,14 +1,17 @@
 #!/bin/bash
+# Set up the runtime environment.
+# Usage: source devconfig.sh
 
-# GCPBUCKET is the object storage for data and models.
-# All team members should have read access to this bucket.
-export GCPBUCKET=gs://cmu-gpucloud-haok/MoE-Research
+# Author: Hao Kang
+# Date: March 27, 2025
 
-# WORKSPACE are mounted with NFS which are shared among all nodes.
-# DISKSPACE are mounted with local SSD which are local to each node.
-export WORKSPACE=/home/$USER/MoE-Research
-export DISKSPACE=/mnt/localssd/$USER/MoE-Research
+# Specify the directories.
+export BUCKET=cmu-gpucloud-haok
+export GCP_MOUNT=/mnt/localssd/MoE-Research
+export NFS_MOUNT=$PWD/slurm-$SLURM_JOB_ID
+export SSD_MOUNT=/mnt/localssd/slurm-$SLURM_JOB_ID
+mkdir -p $NFS_MOUNT $SSD_MOUNT $GCP_MOUNT
 
-# Activate conda environment
+# Activate the environment.
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate MoE
