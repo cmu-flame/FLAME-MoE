@@ -28,6 +28,8 @@ SAVE_PATH=dataset/dclm28b-tokenized/$TOKENIZER/
 sbatch scripts/dataset/tokenize.sh $LOAD_PATH $TOKENIZER $SAVE_PATH
 ```
 
+## Tokenize, Synthetic Dataset
+
 ### Mixtral-Textbook DCLM-28B, GPT2 Tokenizer
 
 ```bash
