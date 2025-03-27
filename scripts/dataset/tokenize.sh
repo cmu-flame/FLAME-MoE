@@ -46,4 +46,4 @@ gcloud storage ls $GCPBUCKET/$1 | while read -r line; do
 done
 
 # Dispatch the tasks to the nodes.
-srun -W 0 scripts/dataset/functions/tokenize_step1.sh $@
+srun -W 0 scripts/dataset/modules/tokenize_step1.sh $@
