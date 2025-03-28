@@ -1,4 +1,6 @@
 #!/bin/bash
+#  Definition for the moe-182m-1.4b model.
+
 # This script is adapted from the following sources:
 # - https://github.com/thu-ml/ReMoE/blob/main/scripts/train_llama_182m_moe.sh
 # - https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/transformer/moe/README.md

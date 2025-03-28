@@ -1,6 +1,6 @@
 # Training
 
-## dense-182m
+## Dense-182M
 
 ```bash
 export JID=0328a
@@ -9,7 +9,16 @@ export TOKENIZER=openai-community/gpt2
 sbatch scripts/training/dense-182m.sh
 ```
 
-## dense-1.4b
+## MoE-182M-1.4B
+
+```bash
+export JID=0328a
+export DATASET=dclm28b
+export TOKENIZER=openai-community/gpt2
+sbatch scripts/training/moe-182m-1.4b.sh
+```
+
+## Dense-1.4B
 
 ```bash
 export JID=0328a
