@@ -41,7 +41,7 @@ LOG_ARGS=(
     --wandb-save-dir $SSD_SPACE
     --wandb-project "MoE-Research"
     --wandb-exp-name $SLURM_JOB_NAME.$RUNID
-    --tensorboard-dir $SSD_SPACE
+    --tensorboard-dir $WEIGHTS_PATH
 )
 
 cd Megatron-LM
