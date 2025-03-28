@@ -24,7 +24,7 @@ DATA_ARGS=(
 )
 
 TRAIN_ARGS=(
-    --micro-batch-size 128
+    --micro-batch-size 16
     --global-batch-size 512
     --lr 5e-4
     --min-lr 5e-5
