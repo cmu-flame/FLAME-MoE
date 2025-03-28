@@ -1,9 +1,9 @@
 #!/bin/bash
 # Tokenize the dataset using the specified tokenizer.
-# Usage: scripts/dataset/tokenize.sh <load-path> <tokenizer> <save-path>
+# Usage: scripts/dataset/tokenize.sh
 
 # Author: Hao Kang
-# Date: March 26, 2025
+# Date: March 9, 2025
 
 #SBATCH --job-name=tokenize
 #SBATCH --output=logs/%x-%j.log
@@ -16,34 +16,18 @@
 #SBATCH --cpus-per-task=24
 #SBATCH --gres=gpu:1
 
-if [[ -z $1 || -z $2 || -z $3 ]]; then
-    echo "Usage: $0 <load-path> <tokenizer> <save-path>"
-    echo "Arguments:"
-    echo "    <load-path> : GCP bucket path containing *.jsonl files to tokenize"
-    echo "    <tokenizer> : HuggingFace tokenizer model to use"
-    echo "    <save-path> : GCP bucket path to save tokenized binaries and indices"
-    exit 1
-fi
-
-# Set up the runtime environment
 source devconfig.sh
-source devsecret.env
-export WORKSPACE=$WORKSPACE/slurm-$SLURM_JOB_ID
-mkdir -p $WORKSPACE
-export DISKSPACE=$DISKSPACE/slurm-$SLURM_JOB_ID
-mkdir -p $DISKSPACE
-trap "rm -rf $WORKSPACE $DISKSPACE" EXIT
+source devsecret.sh
+trap "rm -rf $NFS_SPACE $SSD_SPACE" EXIT
 
-# Discover the files in the GCS and create task files.
 # Each task file contains the GCS link and the local file path.
 gcloud storage ls $GCPBUCKET/$1 | while read -r line; do
     link=$line
     name=$(basename $line)
-    file=$DISKSPACE/$name
-    task=$WORKSPACE/$name.task
+    file=$SSD_SPACE/$name
+    task=$NFS_SPACE/$name.task
     echo $link >> $task
     echo $file >> $task
 done
-
 # Dispatch the tasks to the nodes.
-srun -W 0 scripts/dataset/modules/tokenize_step1.sh $@
+srun -W 0 scripts/dataset/modules/tokenize_step1.sh

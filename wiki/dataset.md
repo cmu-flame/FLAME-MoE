@@ -19,6 +19,12 @@ export TOKENIZER=openai-community/gpt2
 sbatch scripts/dataset/tokenize.sh
 ```
 
+```bash
+export DATASET=dclm28b
+export TOKENIZER=deepseek-ai/DeepSeek-V2-Lite
+sbatch scripts/dataset/tokenize.sh
+```
+
 **DCLM-28B, transformed into academic, textbook style by Mistral-7B.**
 
 ```bash

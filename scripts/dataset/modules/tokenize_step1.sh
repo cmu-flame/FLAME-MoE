@@ -3,11 +3,7 @@
 # Invoked by scripts/dataset/tokenize.sh
 
 # Author: Hao Kang
-# Date: March 27, 2025
-
-export TOKENIZER=$2
-export SAVE_PATH=$3
-mkdir -p $SAVE_PATH
+# Date: March 9, 2025
 
 tokenize() {
     task=$1
@@ -54,7 +50,7 @@ tokenize() {
         gcloud storage cp \
             ${file%.jsonl}_text_document.bin \
             ${file%.jsonl}_text_document.idx \
-            $GCPBUCKET/$SAVE_PATH > /dev/null 2>&1 && break
+            gs://$TEAM_BUCKET/$DATASET_GCP/$DATASET/tokenized/$TOKENIZER/ > /dev/null 2>&1 && break
         echo "Failed to upload tokenized files, retrying..." && sleep 5
         if [ $i -eq 3 ]; then
             echo "ERROR: Failed to upload tokenized files after 3 attempts." >&2
@@ -69,6 +65,6 @@ tokenize() {
 export -f tokenize
 
 # Process task files with file locking to avoid conflicts
-find $WORKSPACE -type f -name "*.task" | while read -r line; do
+find $NFS_SPACE -type f -name "*.task" | while read -r line; do
     flock -n $line -c "tokenize $line" || true
 done
