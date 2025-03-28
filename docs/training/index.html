@@ -305,7 +305,16 @@
         <li class="md-nav__item">
   <a href="#dense-182m" class="md-nav__link">
     <span class="md-ellipsis">
-      dense-182m
+      Dense-182M
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#moe-182m-14b" class="md-nav__link">
+    <span class="md-ellipsis">
+      MoE-182M-1.4B
     </span>
   </a>
   
@@ -314,7 +323,7 @@
         <li class="md-nav__item">
   <a href="#dense-14b" class="md-nav__link">
     <span class="md-ellipsis">
-      dense-1.4b
+      Dense-1.4B
     </span>
   </a>
   
@@ -357,7 +366,16 @@
         <li class="md-nav__item">
   <a href="#dense-182m" class="md-nav__link">
     <span class="md-ellipsis">
-      dense-182m
+      Dense-182M
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#moe-182m-14b" class="md-nav__link">
+    <span class="md-ellipsis">
+      MoE-182M-1.4B
     </span>
   </a>
   
@@ -366,7 +384,7 @@
         <li class="md-nav__item">
   <a href="#dense-14b" class="md-nav__link">
     <span class="md-ellipsis">
-      dense-1.4b
+      Dense-1.4B
     </span>
   </a>
   
@@ -392,14 +410,20 @@
 
 
 <h1 id="training">Training</h1>
-<h2 id="dense-182m">dense-182m</h2>
-<pre><code class="language-bash">export JID=0328a
+<h2 id="dense-182m">Dense-182M</h2>
+<pre><code class="language-bash">export JID=0328
 export DATASET=dclm28b
 export TOKENIZER=openai-community/gpt2
 sbatch scripts/training/dense-182m.sh
 </code></pre>
-<h2 id="dense-14b">dense-1.4b</h2>
-<pre><code class="language-bash">export JID=0328a
+<h2 id="moe-182m-14b">MoE-182M-1.4B</h2>
+<pre><code class="language-bash">export JID=0328
+export DATASET=dclm28b
+export TOKENIZER=openai-community/gpt2
+sbatch scripts/training/moe-182m-1.4b.sh
+</code></pre>
+<h2 id="dense-14b">Dense-1.4B</h2>
+<pre><code class="language-bash">export JID=0328
 export DATASET=dclm28b
 export TOKENIZER=openai-community/gpt2
 sbatch scripts/training/dense-1.4b.sh
