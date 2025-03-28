@@ -5,7 +5,8 @@
 **DCLM-28B, original.**
 
 ```bash
-sbatch scripts/dataset/download.sh dclm28b
+export DATASET=dclm28b
+sbatch scripts/dataset/download.sh
 ```
 
 ## Tokenization
