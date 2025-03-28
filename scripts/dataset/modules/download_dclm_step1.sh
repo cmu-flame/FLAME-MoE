@@ -41,7 +41,7 @@ download() {
     file=${file%.zstd}
     for i in {1..3}; do
         echo "Uploading $file (Attempt $i of 3)"
-        gcloud storage cp $file gs://$TEAM_BUCKET/$DATASET_GCP/$DATASET/ > /dev/null 2>&1 && break
+        gcloud storage cp $file gs://$TEAM_BUCKET/$DATASET_GCP/$DATASET/textfiles/ > /dev/null 2>&1 && break
         echo "Failed to upload $file, retrying..." && sleep 5
         if [ $i -eq 3 ]; then
             echo "ERROR: Failed to upload $file after 3 attempts." >&2
