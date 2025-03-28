@@ -9,7 +9,7 @@ export DATASET=dclm28b
 sbatch scripts/dataset/download.sh
 ```
 
-## Tokenize
+## Tokenization
 
 **DCLM-28B, original.**
 
