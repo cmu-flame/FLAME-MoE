@@ -1,6 +1,5 @@
 #!/bin/bash
 # Train dense-182m model.
-# Usage: scripts/train/dense-182m.sh
 
 # Author: Hao Kang
 # Date: March 21, 2025
@@ -11,20 +10,21 @@
 #SBATCH --partition=preempt
 
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --mem=128G
+#SBATCH --ntasks-per-node=2
+#SBATCH --mem=256G
 #SBATCH --cpus-per-task=24
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:2
 
 source devconfig.sh
 source devsecret.sh
 
+export DATASET_PATH=$DATASET_DIR/$DATASET/tokenized/$TOKENIZER/
+export WEIGHTS_PATH=$WEIGHTS_DIR/dense-182m/$JID/
+
+export GCP_DATASET_PATH=$GCP_DATASET_DIR/$DATASET/tokenized/$TOKENIZER/
+export GCP_WEIGHTS_PATH=$GCP_WEIGHTS_DIR/dense-182m/$JID/
+
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=8000
-export DATASET_PATH_SSD=$DATASET_SSD/$DATASET/tokenized/$TOKENIZER/
-export DATASET_PATH_GCP=$DATASET_GCP/$DATASET/tokenized/$TOKENIZER/
-export WEIGHTS_PATH_SSD=$WEIGHTS_SSD/dense-182m/$SLURM_JOB_ID/
-export WEIGHTS_PATH_GCP=$WEIGHTS_GCP/dense-182m/$SLURM_JOB_ID/
 
-# Dispatch the tasks to the nodes.
 srun -W 0 scripts/training/modules/dense-182m_step1.sh
