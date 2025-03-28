@@ -29,4 +29,5 @@ export GCP_WEIGHTS_PATH=$GCP_WEIGHTS_DIR/moe-182m-1.4b/$JID/
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=8000
 
+srun -W 0 scripts/training/modules/remote_to_local.sh
 srun -W 0 scripts/training/modules/moe-182m-1.4b_step1.sh
