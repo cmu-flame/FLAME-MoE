@@ -7,6 +7,6 @@ if [ $SLURM_LOCALID -eq 0 ]; then
 fi
 
 if [ $SLURM_LOCALID -eq 0 ]; then
-    mkdir -p $WEIGHTS_PATH
-    gcsfuse --only-dir $WEIGHTS_GCP/dense-182m/$RUNID $TEAM_BUCKET $WEIGHTS_PATH
+    mkdir -p $WEIGHTS_SSD
+    gcsfuse --only-dir $WEIGHTS_GCP/dense-182m/$RUNID/ $TEAM_BUCKET $WEIGHTS_PATH
 fi

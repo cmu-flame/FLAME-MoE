@@ -18,7 +18,7 @@
 
 source devconfig.sh
 source devsecret.sh
-trap "rm -rf $NFS_SPACE $SSD_SPACE" EXIT
+
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=8000
 export DATASET_PATH=$DATASET_SSD/$DATASET/tokenized/$TOKENIZER/
@@ -27,3 +27,6 @@ export WEIGHTS_PATH=$WEIGHTS_SSD/dense-182m/$RUNID/
 # Dispatch the tasks to the nodes.
 srun -W 0 scripts/training/modules/dense-182m_step1.sh
 srun -W 0 scripts/training/modules/dense-182m_step2.sh
+
+fusermount -u $WEIGHTS_SSD
+rm -rf $NFS_SPACE $SSD_SPACE
