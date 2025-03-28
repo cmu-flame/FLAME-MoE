@@ -55,12 +55,16 @@ torchrun ${TORCH_ARGS[@]} pretrain_gpt.py \
     ${DATA_ARGS[@]} ${TRAIN_ARGS[@]} ${LOG_ARGS[@]} &
 
 TORCHRUN_PID=$!
-(
-    while kill -0 $TORCHRUN_PID 2>/dev/null; do
-        gcloud storage rsync --recursive $WEIGHTS_PATH $GCP_WEIGHTS_PATH
-        sleep 10m
-    done
-) &
+if [ $SLURM_LOCALID -eq 0 ]; then
+    (
+        while kill -0 $TORCHRUN_PID 2>/dev/null; do
+            gcloud storage rsync --recursive $WEIGHTS_PATH $GCP_WEIGHTS_PATH
+            sleep 10m
+        done
+    ) &
+fi
 
 wait $TORCHRUN_PID
-gcloud storage rsync --recursive $WEIGHTS_PATH $GCP_WEIGHTS_PATH
+if [ $SLURM_LOCALID -eq 0 ]; then
+    gcloud storage rsync --recursive $WEIGHTS_PATH $GCP_WEIGHTS_PATH
+fi
