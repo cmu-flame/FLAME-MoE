@@ -17,6 +17,7 @@
 
 source devconfig.sh
 source devsecret.sh
+trap 'rm -rf $NFS_MOUNT $SSD_MOUNT' EXIT
 
 export DATASET_PATH=$DATASET_DIR/$DATASET/tokenized/$TOKENIZER/
 export WEIGHTS_PATH=$WEIGHTS_DIR/dense-182m/$JID/
