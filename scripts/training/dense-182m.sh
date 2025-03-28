@@ -21,12 +21,10 @@ source devsecret.sh
 
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=8000
-export DATASET_PATH=$DATASET_SSD/$DATASET/tokenized/$TOKENIZER/
-export WEIGHTS_PATH=$WEIGHTS_SSD/dense-182m/$RUNID/
+export DATASET_PATH_SSD=$DATASET_SSD/$DATASET/tokenized/$TOKENIZER/
+export DATASET_PATH_GCP=$DATASET_GCP/$DATASET/tokenized/$TOKENIZER/
+export WEIGHTS_PATH_SSD=$WEIGHTS_SSD/dense-182m/$SLURM_JOB_ID/
+export WEIGHTS_PATH_GCP=$WEIGHTS_GCP/dense-182m/$SLURM_JOB_ID/
 
 # Dispatch the tasks to the nodes.
 srun -W 0 scripts/training/modules/dense-182m_step1.sh
-srun -W 0 scripts/training/modules/dense-182m_step2.sh
-
-fusermount -u $WEIGHTS_SSD
-rm -rf $NFS_SPACE $SSD_SPACE
