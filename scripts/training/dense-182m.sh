@@ -1,6 +1,6 @@
 #!/bin/bash
-# Train dense-182m model on the desired dataset.
-# Usage: scripts/train/dense-182m.sh <tokenizer> <dataset-path> <weights-path>
+# Train dense-182m model.
+# Usage: scripts/train/dense-182m.sh
 
 # Author: Hao Kang
 # Date: March 21, 2025
@@ -16,30 +16,14 @@
 #SBATCH --cpus-per-task=24
 #SBATCH --gres=gpu:1
 
-if [[ -z $1 || -z $2 || -z $3 ]]; then
-    echo "Usage: scripts/train/dense-182m.sh <tokenizer> <dataset-path> <weights-path>"
-    echo "Arguments:"
-    echo "    <tokenizer>    : HuggingFace tokenizer model to use"
-    echo "    <dataset-path> : GCP bucket path to load the tokenized dataset"
-    echo "    <weights-path> : GCP bucket path to save the model weights"
-    exit 1
-fi
-
-export TOKENIZER=$1
-export DATASET_PATH=$2
-export WEIGHTS_PATH=$3
-
 source devconfig.sh
 source devsecret.env
-
-export WORKSPACE=$WORKSPACE/slurm-$SLURM_JOB_ID
-mkdir -p $WORKSPACE
-export DISKSPACE=$DISKSPACE/slurm-$SLURM_JOB_ID
-mkdir -p $DISKSPACE
-trap "rm -rf $WORKSPACE $DISKSPACE" EXIT
-
+trap "rm -rf $NFS_SPACE $SSD_SPACE" EXIT
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=8000
+export DATASET_PATH=$DATASET_SSD/$DATASET/tokenized/$TOKENIZER/
+export WEIGHTS_PATH=$WEIGHTS_SSD/dense-182m/$RUNID/
 
-srun -W 0 scripts/training/modules/dense-182m_step1.sh $@
-srun -W 0 scripts/training/modules/dense-182m_step2.sh $@
+# Dispatch the tasks to the nodes.
+srun -W 0 scripts/training/modules/dense-182m_step1.sh
+srun -W 0 scripts/training/modules/dense-182m_step2.sh

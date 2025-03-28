@@ -1,10 +1,11 @@
 #!/bin/bash
-# Invoked by scripts/training/dense-182m.sh
-
-# Author: Hao Kang
-# Date: March 27, 2025
+# Download the dataset and mount the weights for training.
 
 if [ $SLURM_LOCALID -eq 0 ]; then
-    echo "$(hostname) - Copying dataset from GCP bucket to local disk space"
-    gcloud storage rsync --recursive $GCPBUCKET/$DATASET_PATH $DISKSPACE/$DATASET_PATH
+    gcloud storage rsync --recursive \
+        gs://$TEAM_BUCKET/$DATASET_GCP/$DATASET/tokenized/$TOKENIZER/ $DATASET_PATH
+fi
+
+if [ $SLURM_LOCALID -eq 0 ]; then
+    gcsfuse --only-dir $WEIGHTS_GCP/dense-182m/$RUNID $TEAM_BUCKET $WEIGHTS_PATH
 fi
