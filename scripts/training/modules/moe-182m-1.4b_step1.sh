@@ -11,11 +11,6 @@ export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 source configs/model/moe-182m-1.4b.sh
 source configs/infra/moe-182m-1.4b.sh
 
-if [ $SLURM_LOCALID -eq 0 ]; then
-    gcloud storage rsync --recursive --delete-unmatched-destination-objects $GCP_DATASET_PATH $DATASET_PATH
-    gcloud storage rsync --recursive --delete-unmatched-destination-objects $GCP_WEIGHTS_PATH $WEIGHTS_PATH
-fi
-
 DATA_ARGS=(
     --tokenizer-type HuggingFaceTokenizer
     --tokenizer-model $TOKENIZER
