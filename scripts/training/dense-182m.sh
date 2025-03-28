@@ -17,7 +17,7 @@
 #SBATCH --gres=gpu:1
 
 source devconfig.sh
-source devsecret.env
+source devsecret.sh
 trap "rm -rf $NFS_SPACE $SSD_SPACE" EXIT
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=8000
