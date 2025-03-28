@@ -21,7 +21,7 @@ source devsecret.sh
 trap "rm -rf $NFS_SPACE $SSD_SPACE" EXIT
 
 # Each task file contains the GCS link and the local file path.
-gcloud storage ls $GCPBUCKET/$1 | while read -r line; do
+gcloud storage ls gs://$TEAM_BUCKET/$DATASET_GCP/$DATASET/textfiles/ | while read -r line; do
     link=$line
     name=$(basename $line)
     file=$SSD_SPACE/$name
