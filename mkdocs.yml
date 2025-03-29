@@ -4,6 +4,7 @@ nav:
   - Home: index.md
   - Dataset: dataset.md
   - Training: training.md
+  - Evaluation: evaluation.md
 
 theme:
   name: material
