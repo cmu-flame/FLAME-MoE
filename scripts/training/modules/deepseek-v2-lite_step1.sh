@@ -19,13 +19,13 @@ DATA_ARGS=(
 )
 
 TRAIN_ARGS=(
-    --micro-batch-size 8
-    --global-batch-size 64
+    --micro-batch-size 4
+    --global-batch-size 32
     --lr 5e-4
     --min-lr 5e-5
     --lr-decay-style cosine
     --lr-warmup-fraction 0.01
-    --train-iters 480000
+    --train-iters 960000
     --clip-grad 1.0
     --bf16
 )
@@ -34,7 +34,7 @@ LOG_ARGS=(
     --log-interval 10
     --log-throughput
     --save $WEIGHTS_PATH
-    --save-interval 40000
+    --save-interval 80000
     --load $WEIGHTS_PATH
     --eval-interval 1000
     --eval-iters 100
