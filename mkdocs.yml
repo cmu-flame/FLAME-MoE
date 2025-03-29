@@ -11,7 +11,7 @@ theme:
   features:
     - content.code.copy
 
-docs_dir: wiki
-site_dir: docs
+docs_dir: docs
+site_dir: site
 
 repo_url: https://github.com/cxcscmu/MoE-Research

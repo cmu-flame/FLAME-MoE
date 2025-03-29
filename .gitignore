@@ -3,6 +3,6 @@
 /results
 
 /logs
+/site
 /slurm-*
-
 /devsecret.sh
