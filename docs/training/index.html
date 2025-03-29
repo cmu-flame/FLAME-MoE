@@ -329,6 +329,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deepseek-v2-lite" class="md-nav__link">
+    <span class="md-ellipsis">
+      DeepSeek-V2-Lite
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -390,6 +399,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#deepseek-v2-lite" class="md-nav__link">
+    <span class="md-ellipsis">
+      DeepSeek-V2-Lite
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -427,6 +445,12 @@ sbatch scripts/training/moe-182m-1.4b.sh
 export DATASET=dclm28b
 export TOKENIZER=openai-community/gpt2
 sbatch scripts/training/dense-1.4b.sh
+</code></pre>
+<h2 id="deepseek-v2-lite">DeepSeek-V2-Lite</h2>
+<pre><code class="language-bash">export JID=0328
+export DATASET=dclm28b
+export TOKENIZER=deepseek-ai/DeepSeek-V2-Lite
+sbatch scripts/training/deepseek-v2-lite.sh
 </code></pre>
 
 
