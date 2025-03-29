@@ -50,7 +50,7 @@ tokenize() {
         gcloud storage cp \
             ${file%.jsonl}_text_document.bin \
             ${file%.jsonl}_text_document.idx \
-            gs://$TEAM_BUCKET/$DATASET_GCP/$DATASET/tokenized/$TOKENIZER/ > /dev/null 2>&1 && break
+            $GCP_DATASET_DIR/$DATASET/tokenized/$TOKENIZER/ > /dev/null 2>&1 && break
         echo "Failed to upload tokenized files, retrying..." && sleep 5
         if [ $i -eq 3 ]; then
             echo "ERROR: Failed to upload tokenized files after 3 attempts." >&2
@@ -65,6 +65,6 @@ tokenize() {
 export -f tokenize
 
 # Process task files with file locking to avoid conflicts
-find $NFS_SPACE -type f -name "*.task" | while read -r line; do
+find $NFS_MOUNT -type f -name "*.task" | while read -r line; do
     flock -n $line -c "tokenize $line" || true
 done

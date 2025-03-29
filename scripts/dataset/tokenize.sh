@@ -18,14 +18,14 @@
 
 source devconfig.sh
 source devsecret.sh
-trap "rm -rf $NFS_SPACE $SSD_SPACE" EXIT
+trap "rm -rf $NFS_MOUNT $SSD_MOUNT" EXIT
 
 # Each task file contains the GCS link and the local file path.
-gcloud storage ls gs://$TEAM_BUCKET/$DATASET_GCP/$DATASET/textfiles/ | while read -r line; do
+gcloud storage ls $GCP_DATASET_DIR/$DATASET/textfiles/ | while read -r line; do
     link=$line
     name=$(basename $line)
-    file=$SSD_SPACE/$name
-    task=$NFS_SPACE/$name.task
+    file=$SSD_MOUNT/$name
+    task=$NFS_MOUNT/$name.task
     echo $link >> $task
     echo $file >> $task
 done
