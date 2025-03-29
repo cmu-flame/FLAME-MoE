@@ -1,5 +1,5 @@
 #!/bin/bash
-# Infrastructure configuration for training the dense-182m model.
+# Infrastructure configuration for training the dense-182m.
 
 # This script is adapted from the following sources:
 # - https://github.com/thu-ml/ReMoE/blob/main/scripts/train_llama_182m_dense.sh

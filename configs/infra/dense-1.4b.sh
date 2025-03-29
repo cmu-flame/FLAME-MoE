@@ -1,5 +1,5 @@
 #!/bin/bash
-# Infrastructure configuration for training the dense-1.4b model.
+# Infrastructure configuration for training the dense-1.4b.
 
 # This script is adapted from the following sources:
 # - https://huggingface.co/EleutherAI/pythia-1.4b/blob/main/config.json

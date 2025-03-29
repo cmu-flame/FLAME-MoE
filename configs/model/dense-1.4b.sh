@@ -1,5 +1,5 @@
 #!/bin/bash
-#  Definition for the dense-1.4b model.
+# Model definition for the dense-1.4b model.
 
 # This script is adapted from the following sources:
 # - https://huggingface.co/EleutherAI/pythia-1.4b/blob/main/config.json

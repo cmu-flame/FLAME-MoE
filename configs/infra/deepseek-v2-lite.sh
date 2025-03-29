@@ -1,5 +1,5 @@
 #!/bin/bash
-# Infrastructure for training the deepseek-v2-lite model.
+# Infrastructure configuration for training the deepseek-v2-lite.
 
 # This script is adapted from the following sources:
 # - https://huggingface.co/deepseek-ai/DeepSeek-V2-Lite/blob/main/config.json

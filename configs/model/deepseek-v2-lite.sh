@@ -1,5 +1,5 @@
 #!/bin/bash
-#  Definition for the deepseek-v2-lite model.
+# Model definition for the deepseek-v2-lite model.
 
 # This script is adapted from the following sources:
 # - https://huggingface.co/deepseek-ai/DeepSeek-V2-Lite/blob/main/config.json
