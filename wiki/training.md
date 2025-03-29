@@ -26,3 +26,12 @@ export DATASET=dclm28b
 export TOKENIZER=openai-community/gpt2
 sbatch scripts/training/dense-1.4b.sh
 ```
+
+## DeepSeek-V2-Lite
+
+```bash
+export JID=0328
+export DATASET=dclm28b
+export TOKENIZER=deepseek-ai/DeepSeek-V2-Lite
+sbatch scripts/training/deepseek-v2-lite.sh
+```
