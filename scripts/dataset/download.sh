@@ -17,7 +17,7 @@
 
 source devconfig.sh
 source devsecret.sh
-trap "rm -rf $NFS_SPACE $SSD_SPACE" EXIT
+trap "rm -rf $NFS_MOUNT $SSD_MOUNT" EXIT
 
 download_dclm28b() {
     # Each task file contains the S3 link and the local file path.
@@ -26,8 +26,8 @@ download_dclm28b() {
         name=$(echo $line | awk '{print $4}')
         link=$prefix$name
         name=gs0310-ls110_$name
-        file=$SSD_SPACE/$name
-        task=$NFS_SPACE/$name.task
+        file=$SSD_MOUNT/$name
+        task=$NFS_MOUNT/$name.task
         echo $link >> $task
         echo $file >> $task
     done

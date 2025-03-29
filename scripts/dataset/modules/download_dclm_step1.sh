@@ -41,7 +41,7 @@ download() {
     file=${file%.zstd}
     for i in {1..3}; do
         echo "Uploading $file (Attempt $i of 3)"
-        gcloud storage cp $file gs://$TEAM_BUCKET/$DATASET_GCP/$DATASET/textfiles/ > /dev/null 2>&1 && break
+        gcloud storage cp $file $GCP_DATASET_DIR/$DATASET/textfiles/ > /dev/null 2>&1 && break
         echo "Failed to upload $file, retrying..." && sleep 5
         if [ $i -eq 3 ]; then
             echo "ERROR: Failed to upload $file after 3 attempts." >&2
@@ -56,6 +56,6 @@ download() {
 export -f download
 
 # Process task files with file locking to avoid conflicts.
-find $NFS_SPACE -type f -name "*.task" | while read -r line; do
+find $NFS_MOUNT -type f -name "*.task" | while read -r line; do
     flock -n $line -c "download $line" || true
 done
