@@ -19,7 +19,7 @@ DATA_ARGS=(
 )
 
 TRAIN_ARGS=(
-    --micro-batch-size 96
+    --micro-batch-size 64
     --global-batch-size 768
     --lr 5e-4
     --min-lr 5e-5
