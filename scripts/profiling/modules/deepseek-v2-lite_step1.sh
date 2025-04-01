@@ -43,14 +43,17 @@ LOG_ARGS=(
 
 PROFILE_OUT=$PWD/deepseek-v2-lite
 
-cd Megatron-LM && nsys profile torchrun ${TORCH_ARGS[@]} pretrain_gpt.py \
-    ${MODEL_ARGS[@]} ${INFRA_ARGS[@]} ${DATA_ARGS[@]} ${TRAIN_ARGS[@]} ${LOG_ARGS[@]} \
-    --profile \
-    -s none \
-    -t nvtx,cuda \
-    -o $PROFILE_OUT \
-    --force-overwrite true \
+cd Megatron-LM && nsys profile \
+    --trace=cuda,nvtx \
+    --output=$PROFILE_OUT \
+    --force-overwrite=true \
     --capture-range=cudaProfilerApi \
     --capture-range-end=stop \
-    --profile-step-start 20 \
-    --profile-step-end 25
+    --profile-from-start=false \
+    --sample=none \
+    torchrun ${TORCH_ARGS[@]} pretrain_gpt.py \
+        ${MODEL_ARGS[@]} ${INFRA_ARGS[@]} ${DATA_ARGS[@]} \
+        ${TRAIN_ARGS[@]} ${LOG_ARGS[@]} \
+        --profile \
+        --profile-step-start=20 \
+        --profile-step-end=25
