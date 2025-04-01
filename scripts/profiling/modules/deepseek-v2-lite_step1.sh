@@ -49,7 +49,6 @@ cd Megatron-LM && nsys profile \
     --force-overwrite=true \
     --capture-range=cudaProfilerApi \
     --capture-range-end=stop \
-    --profile-from-start=false \
     --sample=none \
     torchrun ${TORCH_ARGS[@]} pretrain_gpt.py \
         ${MODEL_ARGS[@]} ${INFRA_ARGS[@]} ${DATA_ARGS[@]} \
