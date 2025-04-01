@@ -22,7 +22,7 @@ TRAIN_ARGS=(
     --min-lr 5e-5
     --lr-decay-style cosine
     --lr-warmup-fraction 0.01
-    --train-iters 50
+    --train-iters 30
     --clip-grad 1.0
     --bf16
 )
@@ -44,12 +44,12 @@ LOG_ARGS=(
 PROFILE_OUT=$PWD/deepseek-v2-lite
 
 cd Megatron-LM && nsys profile \
-    --trace=cuda,nvtx \
-    --output=$PROFILE_OUT \
+    -s none \
+    -t nvtx,cuda \
+    -o $PROFILE_OUT \
     --force-overwrite=true \
     --capture-range=cudaProfilerApi \
     --capture-range-end=stop \
-    --sample=none \
     torchrun ${TORCH_ARGS[@]} pretrain_gpt.py \
         ${MODEL_ARGS[@]} ${INFRA_ARGS[@]} ${DATA_ARGS[@]} \
         ${TRAIN_ARGS[@]} ${LOG_ARGS[@]} \
