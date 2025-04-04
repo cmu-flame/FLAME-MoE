@@ -19,13 +19,13 @@ DATA_ARGS=(
 )
 
 TRAIN_ARGS=(
-    --micro-batch-size 64
-    --global-batch-size 768
+    --micro-batch-size 16
+    --global-batch-size 512
     --lr 5e-4
     --min-lr 5e-5
     --lr-decay-style cosine
     --lr-warmup-fraction 0.01
-    --train-iters 40000
+    --train-iters 60000
     --clip-grad 1.0
     --bf16
 )
