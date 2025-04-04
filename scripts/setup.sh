@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#SBATCH --time=02:00:00
+#SBATCH --time=48:00:00
 #SBATCH --job-name=setup
 #SBATCH --output=logs/%x.log
 #SBATCH --partition=preempt
 
-#SBATCH --mem=128G
+#SBATCH --mem=256G
 #SBATCH --cpus-per-task=32
 #SBATCH --gres=gpu:1
 
