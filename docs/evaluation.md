@@ -11,8 +11,9 @@ sbatch scripts/evaluate.sh
 ## MoE-182M-1.4B
 
 ```bash
-export STEP=10k
 export MODEL=moe-182m-1.4b
+export JOBID=19866
+export ITERS=10000
 sbatch scripts/evaluate.sh
 ```
 
