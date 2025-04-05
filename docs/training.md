@@ -13,6 +13,7 @@ sbatch scripts/training/dense-182m.sh
 
 ```bash
 export DATASET=dclm28b
+export DATASET=dclm28b-textbook/mistralai/Mistral-7B-Instruct-v0.2
 export TOKENIZER=openai-community/gpt2
 sbatch scripts/training/moe-182m-1.4b.sh
 ```
