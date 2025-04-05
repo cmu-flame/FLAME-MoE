@@ -1,6 +1,9 @@
 #!/bin/bash
 # Set up the runtime environment.
 
+# Author: Hao Kang
+# Date: April 5, 2025
+
 export DATASET_PREFIX=MoE-Research/dataset
 export WEIGHTS_PREFIX=MoE-Research/weights
 
