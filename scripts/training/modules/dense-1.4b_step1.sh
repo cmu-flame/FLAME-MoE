@@ -10,21 +10,17 @@ export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 source configs/model/dense-1.4b.sh
 source configs/infra/dense-1.4b.sh
 
-# Build dataset file list (format: "1.0 /path/to/file")
-DATA_FILES=$(find "$DATASET_PATH" -type f -name '*.bin' \
-    -exec sh -c 'printf "1.0 %s " "${1%.bin}"' _ {} \; | sed 's/ $//')
-
 # Dataset args
 DATA_ARGS=(
     --tokenizer-type HuggingFaceTokenizer
     --tokenizer-model "$TOKENIZER"
-    --data-path "$DATA_FILES"
+    --data-path $(find $DATASET_PATH -type f -name '*.bin' -exec sh -c 'printf "1.0 %s " "${1%.bin}"' _ {} \; | sed 's/ $//')
     --split 90,5,5
 )
 
 # Training args
 TRAIN_ARGS=(
-    --micro-batch-size 32
+    --micro-batch-size 16
     --global-batch-size 512
     --lr 5e-4
     --min-lr 5e-5
