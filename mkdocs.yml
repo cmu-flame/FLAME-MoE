@@ -2,14 +2,21 @@ site_name: MoE Research
 
 nav:
   - Home: index.md
-  - Dataset: dataset.md
-  - Training: training.md
   - Evaluation: evaluation.md
 
 theme:
   name: material
   features:
     - content.code.copy
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 
 docs_dir: docs
 site_dir: site
