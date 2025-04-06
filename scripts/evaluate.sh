@@ -12,7 +12,8 @@
 #SBATCH --time=2-00:00:00
 
 source devconfig.sh
-source devsecret.env
+source devsecret.sh
+
 trap "rm -rf $NFS_MOUNT $SSD_MOUNT" EXIT
 
 export OMP_NUM_THREADS=8
