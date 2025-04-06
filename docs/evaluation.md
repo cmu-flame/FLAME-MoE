@@ -32,8 +32,8 @@ sbatch scripts/evaluate.sh
 
 This script should:
 
-- Load the checkpoint associated with `JOBID` and `ITERS`.
 - Initialize the model and tokenizer.
+- Load the checkpoint associated with `JOBID` and `ITERS`.
 - Run evaluation.
 - Write results to `logs/evaluate-${SLURM_JOB_ID}.log` by default.
 
