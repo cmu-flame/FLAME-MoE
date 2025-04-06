@@ -1,19 +1,19 @@
 #!/bin/bash
-# Evaluation.
 
 # Author: Zichun Yu
 # Date: March 10, 2025
 
-#SBATCH --job-name=eval               # Set the job name
-#SBATCH --output=logs/evaluate-%j.log # Set the output file
-#SBATCH --nodes=1                     # Request 1 compute nodes
-#SBATCH --gres=gpu:1                  # Request 1 GPU devices per node
-#SBATCH --cpus-per-task=128           # Request 128 CPU cores per task
-#SBATCH --mem=512G                    # Request 512 GB of RAM per node
-#SBATCH --time=2-00:00:00             # Set the time limit
+#SBATCH --job-name=evaluate
+#SBATCH --output=logs/evaluate-%j.log
+#SBATCH --nodes=1
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=256G
+#SBATCH --time=2-00:00:00
 
 source devconfig.sh
 source devsecret.env
+trap "rm -rf $NFS_MOUNT $SSD_MOUNT" EXIT
 
 export OMP_NUM_THREADS=8
 export CUDA_DEVICE_MAX_CONNECTIONS=1
@@ -37,4 +37,4 @@ cd lm-evaluation-harness && PYTHONPATH=/home/$USER/MoE-Research/Megatron-LM torc
     --output_path /dev/null \
     --batch_size 16 \
     --tokenizer-type HuggingFaceTokenizer \
-    --tokenizer-model openai-community/gpt2
+    --tokenizer-model $TOKENIZER
