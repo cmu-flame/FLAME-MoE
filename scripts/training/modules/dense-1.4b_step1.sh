@@ -42,7 +42,7 @@ LOG_ARGS=(
     --eval-iters 100
     --wandb-save-dir "$SSD_MOUNT"
     --wandb-project "MoE-Research"
-    --wandb-exp-name "$SLURM_JOB_NAME.$JID"
+    --wandb-exp-name "$SLURM_JOB_NAME.$SLURM_JOB_ID"
     --tensorboard-dir "$WEIGHTS_PATH"
 )
 
