@@ -12,29 +12,29 @@
 #SBATCH --mem=512G                    # Request 512 GB of RAM per node
 #SBATCH --time=2-00:00:00             # Set the time limit
 
-# Setup the environment.
 source devconfig.sh
 source devsecret.env
+
+export OMP_NUM_THREADS=8
 export CUDA_DEVICE_MAX_CONNECTIONS=1
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 export HF_DATASETS_TRUST_REMOTE_CODE=true
 
-# Define the run to evaluate.
-PROJECT_NAME="dense-1.4B.15118"
-WEIGHTS_PATH=$WEIGHTS_DIR/$PROJECT_NAME
-source configs/model/dense-1.4B.sh
+source configs/model/$MODEL.sh
+gcloud storage cp -r $GCP_WEIGHTS_DIR/$MODEL/$JOBID/* $SSD_MOUNT/
+echo $ITERS > $SSD_MOUNT/latest_checkpointed_iteration.txt
 
-cd lm-evaluation-harness && PYTHONPATH=$WORKSPACE/Megatron-LM torchrun \
+cd lm-evaluation-harness && PYTHONPATH=/home/$USER/MoE-Research/Megatron-LM torchrun \
     --nproc-per-node=1 --master_addr=localhost --master_port=6000 -m lm_eval \
     ${MODEL_ARGS[@]} \
     --bf16 \
     --micro-batch-size 1 \
     --max-tokens-to-oom 10000000 \
     --seed 42 \
-    --load $WEIGHTS_PATH \
+    --load $SSD_MOUNT \
     --model megatron_lm \
     --tasks "arc_easy,arc_challenge,boolq,hellaswag,winogrande,piqa,race,lambada_openai" \
-    --output_path $RESULTS_DIR/$PROJECT_NAME \
+    --output_path /dev/null \
     --batch_size 16 \
     --tokenizer-type HuggingFaceTokenizer \
     --tokenizer-model openai-community/gpt2

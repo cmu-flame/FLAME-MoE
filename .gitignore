@@ -2,7 +2,7 @@
 /weights
 /results
 
-/tmp.*
 /logs
-
-/devsecret.env
+/site
+/slurm-*
+/devsecret.sh
