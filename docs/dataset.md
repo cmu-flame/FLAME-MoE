@@ -15,7 +15,7 @@ export TOKENIZER=deepseek-ai/DeepSeek-V3
 
 #### Dataset
 
-The name of the dataset to tokenize (e.g., `dclm28b`). 
+The name of the dataset to tokenize.
 
 The dataset is expected to be stored in Google Cloud Storage under the path: `$GCP_DATASET_DIR/$DATASET/textfiles/`. Each file in this directory must be in `.jsonl` format, where each line is a JSON object containing a "text" field with the input string to be tokenized.
 
