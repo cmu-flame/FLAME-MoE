@@ -5,5 +5,5 @@ set -u
 set -o pipefail
 
 pushd lm-evaluation-harness
-pip install -e . -v
+pip3 install -e . -v
 popd
