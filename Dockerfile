@@ -65,17 +65,17 @@ COPY install/install_python_packages.sh /install/install_python_packages.sh
 COPY install/requirements.txt requirements.txt
 RUN bash /install/install_python_packages.sh
 
-COPY install/install_apex.sh /install/install_apex.sh
-COPY --chown=moe:moe apex/ apex/
-RUN bash /install/install_apex.sh
+# COPY install/install_apex.sh /install/install_apex.sh
+# COPY --chown=moe:moe apex/ apex/
+# RUN bash /install/install_apex.sh
 
 COPY install/install_lm_evaluation_harness.sh /install/install_lm_evaluation_harness.sh
 COPY --chown=moe:moe lm-evaluation-harness/ lm-evaluation-harness/
 RUN bash /install/install_lm_evaluation_harness.sh
 
-COPY install/install_transformer_engine.sh /install/install_transformer_engine.sh
-COPY --chown=moe:moe TransformerEngine/ TransformerEngine/
-RUN bash /install/install_transformer_engine.sh
+# COPY install/install_transformer_engine.sh /install/install_transformer_engine.sh
+# COPY --chown=moe:moe TransformerEngine/ TransformerEngine/
+# RUN bash /install/install_transformer_engine.sh
 
 RUN echo "source activate py310" >> /home/moe/.zshrc
 
