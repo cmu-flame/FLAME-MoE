@@ -5,6 +5,7 @@ nav:
   - Dataset: dataset.md
   - Training: training.md
   - Evaluation: evaluation.md
+  - Profiling: profiling.md
 
 theme:
   name: material

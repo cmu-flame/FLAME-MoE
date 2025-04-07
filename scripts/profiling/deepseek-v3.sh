@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=profile-deepseek-v3
-#SBATCH --output=logs/%x/%j.log
+#SBATCH --output=logs/%x/%j/stdout.log
 
 #SBATCH --partition=flame
 #SBATCH --time=00-01:00:00
