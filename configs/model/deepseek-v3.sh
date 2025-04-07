@@ -8,9 +8,8 @@
 # For a full list of training arguments and options, refer to:
 # - https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/training/arguments.py
 
-# The following features are not currently supported by Megatron-LM:
+# The following features aren't yet ported into Megatron-LM:
 # topk_method='noaux_tc'
-# num_experts_per_tok=8
 # first_k_dense_replace=3
 # rope_theta=10000.0
 
@@ -38,6 +37,7 @@ MODEL_ARGS=(
     --moe-ffn-hidden-size 2048
     --moe-shared-expert-intermediate-size $((1 * 2048)) # Using 1 shared expert with hidden size 2048
     --num-experts 256
+    --moe-router-topk 8
     --moe-router-topk-scaling-factor 2.5
     --moe-router-num-groups 8
     --moe-router-group-topk 4

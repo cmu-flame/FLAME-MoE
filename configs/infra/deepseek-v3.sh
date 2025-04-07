@@ -11,7 +11,8 @@ TORCH_ARGS=(
 )
 
 INFRA_ARGS=(
-    --tensor-model-parallel-size 1
+    --sequence-parallel
+    --tensor-model-parallel-size 8
     --pipeline-model-parallel-size 1
     --expert-model-parallel-size 1
     --use-distributed-optimizer
