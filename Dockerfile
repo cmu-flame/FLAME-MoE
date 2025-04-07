@@ -6,9 +6,13 @@ RUN apt-get update && apt-get install -y \
     wget \
     git \
     clang-format \
-    clangd \
+    clangd-14 \
+    python3 \
+    python-is-python3 \
+    python3-venv \
     vim \
     zsh \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Install oh-my-zsh
@@ -51,13 +55,30 @@ COPY install/install_python.sh /install/install_python.sh
 RUN bash /install/install_python.sh py310
 
 # clangd
-# ENV PATH="/usr/lib/llvm-19/bin:$PATH"
+ENV PATH="/usr/lib/llvm-14/bin:$PATH"
 # conda
 ENV PATH="/home/moe/conda/bin:$PATH"
 ENV PATH="/home/moe/conda/envs/py310/bin:$PATH"
 
 # Install python packages
+COPY install/install_python_packages.sh /install/install_python_packages.sh
+COPY install/requirements.txt requirements.txt
+RUN bash /install/install_python_packages.sh
+
+COPY install/install_apex.sh /install/install_apex.sh
+RUN bash /install/install_apex.sh
+
+COPY install/install_lm_evaluation_harness.sh /install/install_lm_evaluation_harness.sh
+RUN bash /install/install_lm_evaluation_harness.sh
+
+COPY install/install_transformer_engine.sh /install/install_transformer_engine.sh
+RUN bash /install/install_transformer_engine.sh
+
 RUN echo "source activate py310" >> /home/moe/.zshrc
+
+# Install aws-cli
+COPY install/install_aws_cli.sh /install/install_aws_cli.sh
+RUN bash /install/install_aws_cli.sh
 
 # Set zsh as default shell
 ENV SHELL=/bin/zsh

@@ -1,8 +1,8 @@
 {
     "name": "CUDA Development Container",
     "build": {
-        "dockerfile": "Dockerfile",
-        "context": "."
+        "dockerfile": "../Dockerfile",
+        "context": ".."
     },
     "runArgs": [
         "--gpus=all"
