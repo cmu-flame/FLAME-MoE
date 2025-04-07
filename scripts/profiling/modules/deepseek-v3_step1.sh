@@ -23,7 +23,7 @@ TRAIN_ARGS=(
     --min-lr 5e-5
     --lr-decay-style cosine
     --lr-warmup-fraction 0.01
-    --train-iters 25
+    --train-iters 50
     --clip-grad 1.0
 )
 
@@ -31,9 +31,9 @@ LOG_ARGS=(
     --log-interval 5
     --log-throughput
     --save $WEIGHTS_PATH
-    --save-interval 100
+    --save-interval 50
     --load $WEIGHTS_PATH
-    --eval-interval 100
+    --eval-interval 50
     --wandb-save-dir $SSD_MOUNT
     --wandb-project "MoE-Research"
     --wandb-exp-name $SLURM_JOB_NAME.$SLURM_JOB_ID
