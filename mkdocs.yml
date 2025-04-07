@@ -2,6 +2,7 @@ site_name: MoE Research
 
 nav:
   - Home: index.md
+  - Dataset: dataset.md
   - Training: training.md
   - Evaluation: evaluation.md
 

@@ -1,21 +1,16 @@
 #!/bin/bash
-# Download and tokenize the dataset from GCS, then upload to GCS.
-# Invoked by scripts/dataset/tokenize.sh
-
-# Author: Hao Kang
-# Date: March 9, 2025
 
 tokenize() {
     task=$1
 
-    # Skip if task file is empty (already processed)
+    # Skip if task file is empty (already processed).
     [ ! -s "$task" ] && return 0
 
-    # Read GCS link and local file path
+    # Read GCS link and local file path.
     link=$(sed -n '1p' $task)
     file=$(sed -n '2p' $task)
 
-    # Download from GCS (max 3 attempts)
+    # Download from GCS (max 3 attempts).
     for i in {1..3}; do
         echo "Downloading $link (Attempt $i of 3)"
         gcloud storage cp $link $file > /dev/null 2>&1 && break
@@ -26,7 +21,7 @@ tokenize() {
         fi
     done
 
-    # Tokenize the file with Megatron-LM (max 3 attempts)
+    # Tokenize the file with Megatron-LM (max 3 attempts).
     cd Megatron-LM
     for i in {1..3}; do
         echo "Tokenizing $file (Attempt $i of 3)"
@@ -44,7 +39,7 @@ tokenize() {
         fi
     done
 
-    # Upload the tokenized files to GCS (max 3 attempts)
+    # Upload the tokenized files to GCS (max 3 attempts).
     for i in {1..3}; do
         echo "Uploading tokenized files to GCS (Attempt $i of 3)"
         gcloud storage cp \
@@ -58,13 +53,13 @@ tokenize() {
         fi
     done
 
-    # Mark task as completed
+    # Mark task as completed.
     > $task
 }
 
 export -f tokenize
 
-# Process task files with file locking to avoid conflicts
+# Process task files with file locking to avoid conflicts.
 find $NFS_MOUNT -type f -name "*.task" | while read -r line; do
     flock -n $line -c "tokenize $line" || true
 done

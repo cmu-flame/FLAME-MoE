@@ -2,7 +2,6 @@
 
 #SBATCH --job-name=profile-deepseek-v3
 #SBATCH --output=logs/%x/%j.log
-#SBATCH --exclude=orchard-flame-7
 
 #SBATCH --partition=flame
 #SBATCH --time=00-01:00:00
@@ -18,7 +17,7 @@
 source devconfig.sh
 source devsecret.sh
 
-# Ensure cleanup of mount directories on exit.
+# Ensure cleanup of temporary directories on exit.
 trap 'rm -rf $NFS_MOUNT $SSD_MOUNT' EXIT
 
 # Setup directories for dataset and weights.
