@@ -17,6 +17,7 @@ INFRA_ARGS=(
     --use-distributed-optimizer
     --overlap-grad-reduce
     --overlap-param-gather
+    --moe-token-dispatcher-type alltoall
     --moe-shared-expert-overlap
     --bf16
 )
