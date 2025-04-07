@@ -13,7 +13,7 @@ TORCH_ARGS=(
 INFRA_ARGS=(
     --tensor-model-parallel-size 1
     --pipeline-model-parallel-size 1
-    --expert-model-parallel-size 1
+    --expert-model-parallel-size 8
     --use-distributed-optimizer
     --overlap-grad-reduce
     --overlap-param-gather

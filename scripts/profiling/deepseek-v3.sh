@@ -31,5 +31,8 @@ mkdir -p $DATASET_PATH $WEIGHTS_PATH
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=8000
 
+# Download the dataset and weights.
+srun -W 0 scripts/profiling/modules/download.sh
+
 # Dispatch the training.
 srun -W 0 scripts/profiling/modules/deepseek-v3_step1.sh
