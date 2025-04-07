@@ -18,8 +18,8 @@ DATA_ARGS=(
 )
 
 TRAIN_ARGS=(
-    --micro-batch-size 4
-    --global-batch-size 32
+    --micro-batch-size 1
+    --global-batch-size 8
     --lr 5e-4
     --min-lr 5e-5
     --lr-decay-style cosine
