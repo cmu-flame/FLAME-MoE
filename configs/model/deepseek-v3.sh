@@ -14,6 +14,9 @@
 # first_k_dense_replace=3
 # rope_theta=10000.0
 
+# Arguments in this script can be overridden via environment variables to simplify debugging.
+# Default values are provided as fallbacks to use the official configuration.
+
 MODEL_ARGS=(
     # Tokenizer
     --vocab-size 129280
@@ -21,7 +24,7 @@ MODEL_ARGS=(
     # Network Size
     --hidden-size 7168
     --ffn-hidden-size 18432
-    --num-layers 61
+    --num-layers "${NUM_LAYERS:-61}"
     --num-attention-heads 128
     --swiglu
     --max-position-embeddings 4096
