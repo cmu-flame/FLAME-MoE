@@ -11,7 +11,6 @@
 # The following features aren't yet ported into Megatron-LM:
 # topk_method='noaux_tc'
 # first_k_dense_replace=3
-# rope_theta=10000.0
 
 # Arguments in this script can be overridden via environment variables to simplify debugging.
 # Default values are provided as fallbacks to use the official configuration.
