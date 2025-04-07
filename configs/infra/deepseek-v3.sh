@@ -18,4 +18,5 @@ INFRA_ARGS=(
     --overlap-grad-reduce
     --overlap-param-gather
     --moe-shared-expert-overlap
+    --bf16
 )
