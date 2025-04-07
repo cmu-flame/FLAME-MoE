@@ -10,6 +10,7 @@ source configs/model/deepseek-v3.sh
 source configs/infra/deepseek-v3.sh
 
 DATA_ARGS=(
+    --seq-length 4096
     --tokenizer-type HuggingFaceTokenizer
     --tokenizer-model $TOKENIZER
     --data-path $(find $DATASET_PATH -type f -name '*.bin' -exec sh -c 'printf "1.0 %s " "${1%.bin}"' _ {} \; | sed 's/ $//')
