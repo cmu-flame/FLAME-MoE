@@ -1,5 +1,5 @@
 #!/bin/bash
-# Infrastructure for DeepSeek V3 678B.
+# Infrastructure configuration for DeepSeek V3 678B.
 
 TORCH_ARGS=(
     --nnodes $SLURM_NNODES

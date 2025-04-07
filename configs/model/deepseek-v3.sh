@@ -1,5 +1,5 @@
 #!/bin/bash
-# Model for DeepSeek V3 678B.
+# Model configuration for DeepSeek V3 678B.
 
 # This script is adapted for running DeepSeek-V3 with Megatron-LM.
 # It follows the setup outlined in:
