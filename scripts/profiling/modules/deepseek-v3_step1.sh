@@ -38,9 +38,18 @@ LOG_ARGS=(
 )
 
 # Dispatch the training.
-cd Megatron-LM && torchrun ${TORCH_ARGS[@]} pretrain_gpt.py \
-    ${MODEL_ARGS[@]} ${INFRA_ARGS[@]} \
-    ${DATA_ARGS[@]} ${TRAIN_ARGS[@]} ${LOG_ARGS[@]} &
+cd Megatron-LM && nsys profile \
+    -s none -t nvtx,cuda \
+    -o $PROFILE_PATH \
+    --force-overwrite=true \
+    --capture-range=cudaProfilerApi \
+    --capture-range-end=stop \
+    torchrun ${TORCH_ARGS[@]} pretrain_gpt.py \
+        --profile \
+        --profile-step-start=20 \
+        --profile-step-end=25 \
+        ${MODEL_ARGS[@]} ${INFRA_ARGS[@]} \
+        ${DATA_ARGS[@]} ${TRAIN_ARGS[@]} ${LOG_ARGS[@]} &
 
 # Periodically synchronize checkpoints back to GCP while training.
 TORCHRUN_PID=$!
