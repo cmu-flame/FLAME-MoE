@@ -11,6 +11,7 @@ source configs/infra/deepseek-v3.sh
 
 DATA_ARGS=(
     --seq-length 4096
+    --vocab-size 129280
     --tokenizer-type HuggingFaceTokenizer
     --tokenizer-model $TOKENIZER
     --data-path $(find $DATASET_PATH -type f -name '*.bin' -exec sh -c 'printf "1.0 %s " "${1%.bin}"' _ {} \; | sed 's/ $//')
@@ -31,10 +32,6 @@ TRAIN_ARGS=(
 LOG_ARGS=(
     --log-interval 5
     --log-throughput
-    --save $WEIGHTS_PATH
-    --save-interval 50
-    --load $WEIGHTS_PATH
-    --eval-interval 50
     --wandb-save-dir $SSD_MOUNT
     --wandb-project "MoE-Research"
     --wandb-exp-name $SLURM_JOB_NAME.$SLURM_JOB_ID

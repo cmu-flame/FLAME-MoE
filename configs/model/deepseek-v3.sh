@@ -16,9 +16,6 @@
 # Default values are provided as fallbacks to use the official configuration.
 
 MODEL_ARGS=(
-    # Tokenizer
-    --vocab-size 129280
-
     # Network Size
     --hidden-size 7168
     --ffn-hidden-size 18432
