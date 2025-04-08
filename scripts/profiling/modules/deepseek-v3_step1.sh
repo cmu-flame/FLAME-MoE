@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# Setup the runtime environment.
 export OMP_NUM_THREADS=8
 export CUDA_DEVICE_MAX_CONNECTIONS=1
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1
 
-# Load the configurations.
 source configs/model/deepseek-v3.sh
 source configs/infra/deepseek-v3.sh
 
@@ -34,9 +32,9 @@ LOG_ARGS=(
     --log-throughput
     --eval-iters 1
     --wandb-save-dir $SSD_MOUNT
-    --wandb-project "MoE-Research"
+    --wandb-project "MoE-Research-Profiling"
     --wandb-exp-name $SLURM_JOB_NAME.$SLURM_JOB_ID
-    --tensorboard-dir $WEIGHTS_PATH
+    --tensorboard-dir $PROFILE_PATH
 )
 
 # Dispatch the training.
@@ -49,12 +47,12 @@ TORCHRUN_PID=$!
 if [ $SLURM_LOCALID -eq 0 ]; then
     (
         while kill -0 $TORCHRUN_PID 2>/dev/null; do
-            gcloud storage rsync --recursive $WEIGHTS_PATH $GCP_WEIGHTS_PATH
+            gcloud storage rsync --recursive $PROFILE_PATH $GCP_PROFILE_PATH
             sleep 10m
         done
     ) &
 fi
 wait $TORCHRUN_PID
 if [ $SLURM_LOCALID -eq 0 ]; then
-    gcloud storage rsync --recursive $WEIGHTS_PATH $GCP_WEIGHTS_PATH
+    gcloud storage rsync --recursive $PROFILE_PATH $GCP_PROFILE_PATH
 fi
