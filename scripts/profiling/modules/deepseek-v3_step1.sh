@@ -32,6 +32,7 @@ TRAIN_ARGS=(
 LOG_ARGS=(
     --log-interval 5
     --log-throughput
+    --eval-iters 1
     --wandb-save-dir $SSD_MOUNT
     --wandb-project "MoE-Research"
     --wandb-exp-name $SLURM_JOB_NAME.$SLURM_JOB_ID
