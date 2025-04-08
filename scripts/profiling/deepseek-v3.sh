@@ -22,9 +22,9 @@ trap 'rm -rf $NFS_MOUNT $SSD_MOUNT' EXIT
 
 # Setup directories for dataset and weights.
 export DATASET_PATH=$DATASET_DIR/$DATASET/tokenized/$TOKENIZER/
-export WEIGHTS_PATH=$WEIGHTS_DIR/deepseek-v2-lite/$SLURM_JOB_ID/
+export WEIGHTS_PATH=$WEIGHTS_DIR/$SLURM_JOB_NAME/$SLURM_JOB_ID/
 export GCP_DATASET_PATH=$GCP_DATASET_DIR/$DATASET/tokenized/$TOKENIZER/
-export GCP_WEIGHTS_PATH=$GCP_WEIGHTS_DIR/deepseek-v2-lite/$SLURM_JOB_ID/
+export GCP_WEIGHTS_PATH=$GCP_WEIGHTS_DIR/$SLURM_JOB_NAME/$SLURM_JOB_ID/
 mkdir -p $DATASET_PATH $WEIGHTS_PATH
 
 # Mark the first node as the master.
