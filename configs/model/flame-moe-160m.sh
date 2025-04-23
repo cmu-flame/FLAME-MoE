@@ -20,9 +20,9 @@ MODEL_ARGS=(
     --disable-bias-linear
 
     # Mixture of Experts
-    --moe-ffn-hidden-size $PARAM_MOE_FFN_HIDDEN_SIZE
-    --num-experts $PARAM_NUM_EXPERTS
-    --moe-router-topk $PARAM_MOE_ROUTER_TOPK
+    --moe-ffn-hidden-size $MOE_FFN_HIDDEN_SIZE
+    --num-experts $NUM_EXPERTS
+    --moe-router-topk $MOE_ROUTER_TOPK
     --moe-router-pre-softmax
     --moe-router-score-function softmax
     --moe-aux-loss-coeff 0.01
