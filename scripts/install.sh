@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=setup
+#SBATCH --job-name=install
 #SBATCH --output=logs/%x/%j.log
 
 #SBATCH --partition=flame
