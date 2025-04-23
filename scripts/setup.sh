@@ -18,9 +18,11 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda create -n MoE python=3.10 -y
 conda activate MoE
 
-pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu124
+export CUDACXX=/usr/local/cuda-12.4/bin/nvcc
 
+pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu124
 pip install -r Megatron-LM/requirements/pytorch_24.10/requirements.txt
+pip install transformers pybind11 tensorboard
 
 pushd apex
 pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --config-settings "--build-option=--cpp_ext" --config-settings "--build-option=--cuda_ext" ./
@@ -38,5 +40,3 @@ popd
 pushd lm-evaluation-harness
 pip install -e .
 popd
-
-pip install transformers pybind11 tensorboard
