@@ -20,7 +20,7 @@ MODEL_ARGS=(
     --disable-bias-linear
 
     # Mixture of Experts
-    --moe-ffn-hidden-size $MOE_FFN_HIDDEN_SIZE
+    --moe-ffn-hidden-size 3072
     --num-experts $NUM_EXPERTS
     --moe-router-topk $MOE_ROUTER_TOPK
     --moe-router-pre-softmax

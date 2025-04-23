@@ -18,8 +18,6 @@ source ~/miniconda3/etc/profile.d/conda.sh
 conda create -n MoE python=3.10 -y
 conda activate MoE
 
-export CUDACXX=/usr/local/cuda-12.4/bin/nvcc
-
 pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu124
 pip install -r Megatron-LM/requirements/pytorch_24.10/requirements.txt
 pip install transformers pybind11 tensorboard
@@ -29,6 +27,7 @@ pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation -
 popd
 
 pushd TransformerEngine
+export CUDACXX=/usr/local/cuda-12.4/bin/nvcc
 export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/nvtx/include:$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/cudnn/include
 export C_INCLUDE_PATH=$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/nvtx/include:$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/cudnn/include
 export CUDNN_PATH=$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/cudnn

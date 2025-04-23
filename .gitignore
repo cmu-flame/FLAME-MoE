@@ -5,4 +5,5 @@
 /logs
 /site
 /slurm-*
-/devsecret.sh
+
+/scripts/secret.sh
