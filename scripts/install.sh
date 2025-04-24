@@ -1,4 +1,5 @@
 #!/bin/bash
+# Install the runtime environment.
 
 #SBATCH --job-name=install
 #SBATCH --output=logs/%x/%j.log
@@ -20,6 +21,7 @@ conda activate MoE
 
 pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
 pip install -r Megatron-LM/requirements/pytorch_24.10/requirements.txt
+pip install transformers pybind11 tensorboard
 
 pushd apex
 pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --config-settings "--build-option=--cpp_ext" --config-settings "--build-option=--cuda_ext" ./
