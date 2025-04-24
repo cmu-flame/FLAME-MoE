@@ -19,8 +19,8 @@ script = r"""
 #SBATCH --cpus-per-task=208
 #SBATCH --gres=gpu:8
 
-source scripts/prepare.sh
-source scripts/secrets.sh
+source scripts/config.sh
+source scripts/secret.sh
 
 configs=({configs})
 
@@ -36,7 +36,7 @@ for config in "${{configs[@]}}"; do
         export MICRO_BATCH_SIZE=$micro_batch_size
         export PIPELINE_MODEL_PARALLEL_SIZE=$pipeline_model_parallel_size
         export TRAIN_ITERS=$train_iters
-        export WANDB_RUN_GROUP="flame-moe-ablation-$flops"
+        export WANDB_RUN_GROUP="ablation-$flops"
         export WANDB_NAME="$SLURM_JOB_ID"
         export TRAIN_DATASET="$GCP_DATASET/dclm-138b/tokenized/EleutherAI/pythia-12b"
         bash scripts/training/flame-moe.sh

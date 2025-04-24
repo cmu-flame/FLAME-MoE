@@ -20,7 +20,7 @@ SAVE_ARGS=(
     --load $SSD_WEIGHTS
     --eval-interval 1000
     --wandb-save-dir $SSD_WEIGHTS
-    --wandb-project "FLAME MoE"
+    --wandb-project "flame-moe"
     --wandb-exp-name $SLURM_JOB_ID
     --tensorboard-dir $SSD_WEIGHTS
 )
