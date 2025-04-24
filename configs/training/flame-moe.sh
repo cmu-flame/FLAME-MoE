@@ -1,9 +1,5 @@
 #!/bin/bash
-# FLAME MoE 410M Train Config.
-# 410M refers to active parameters when 1 expert is active under granularity of 1.
-
-# This script is adapted from the following sources:
-# https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/transformer/moe/README.md
+# Infrastructure setup with FLAME MoE.
 
 TORCH_ARGS=(
     --nnodes $SLURM_NNODES
@@ -17,7 +13,7 @@ TORCH_ARGS=(
 INFRA_ARGS=(
     --sequence-parallel
     --tensor-model-parallel-size 1
-    --pipeline-model-parallel-size $PIPELINE_MODEL_PARALLEL_SIZE
+    --pipeline-model-parallel-size 1
     --expert-model-parallel-size 1
     --use-distributed-optimizer
     --overlap-grad-reduce

@@ -1,15 +1,11 @@
 #!/bin/bash
-# FLAME MoE 410M Model Config.
-# 410M refers to active parameters when 1 expert is active under granularity of 1.
-
-# This script is adapted from the following sources:
-# https://huggingface.co/EleutherAI/pythia-410m/blob/main/config.json
+# Model configuration with FLAME MoE.
 
 MODEL_ARGS=(
     # Network Size
-    --hidden-size 1024
-    --ffn-hidden-size 4096
-    --num-layers 24
+    --hidden-size $HIDDEN_SIZE
+    --ffn-hidden-size $FFN_HIDDEN_SIZE
+    --num-layers $NUM_LAYERS
     --num-attention-heads 16
     --swiglu
     --max-position-embeddings 2048
@@ -20,9 +16,11 @@ MODEL_ARGS=(
     --disable-bias-linear
 
     # Mixture of Experts
-    --moe-ffn-hidden-size 4096
-    --num-experts $NUM_EXPERTS
-    --moe-router-topk $MOE_ROUTER_TOPK
+    --moe-ffn-hidden-size $MOE_FFN_HIDDEN_SIZE
+    --num-experts 64
+    --moe-router-topk 6
+    --moe-shared-expert-intermediate-size $((2 * MOE_FFN_HIDDEN_SIZE))
+    --moe-layer-freq $MOE_LAYER_FREQ
     --moe-router-pre-softmax
     --moe-router-score-function softmax
     --moe-aux-loss-coeff 0.01
