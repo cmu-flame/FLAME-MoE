@@ -53,7 +53,6 @@ def main():
     for c in df.columns:
         if c.startswith("train_iters_"):
             for _, row in df.iterrows():
-                n += 1
                 moe_layer_freq = f"[0]*1+[1]*{int(row['num_layers'])-1}"
                 configs += '    " '
                 configs += " ".join([
@@ -67,7 +66,8 @@ def main():
                     str(row[c]).rjust(6),
                     c.removeprefix("train_iters_")
                 ])
-                configs += '"\n'
+                configs += f'" # {n}\n'
+                n += 1
 
     file = Path(f"scripts/ablation/flame-moe.sh")
     file.write_text(script.format(length=n - 1, configs=configs) + "\n")
