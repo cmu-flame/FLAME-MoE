@@ -3,8 +3,8 @@
 export OMP_NUM_THREADS=16
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true
 
-source configs/model/flame-moe-$MODEL_SCALE.sh
-source configs/train/flame-moe-$MODEL_SCALE.sh
+source configs/model/flame-moe.sh
+source configs/train/flame-moe.sh
 
 DATA_ARGS=(
     --seq-length 2048
