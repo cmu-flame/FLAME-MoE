@@ -70,7 +70,7 @@ configs=(
 
 i=0
 for config in "${configs[@]}"; do
-  read -r hidden_size ffn_hidden_size moe_ffn_hidden_size num_layers moe_layer_freq micro_batch_size pipeline_model_parallel_size train_iters flops <<< "$config"
+  read -r hidden_size ffn_hidden_size moe_ffn_hidden_size num_layers moe_layer_freq micro_batch_size expert_model_parallel_size train_iters flops <<< "$config"
     if [[ $SLURM_ARRAY_TASK_ID -eq $i ]]; then
         export HIDDEN_SIZE=$hidden_size
         export FFN_HIDDEN_SIZE=$ffn_hidden_size
@@ -78,7 +78,7 @@ for config in "${configs[@]}"; do
         export NUM_LAYERS=$num_layers
         export MOE_LAYER_FREQ=$moe_layer_freq
         export MICRO_BATCH_SIZE=$micro_batch_size
-        export PIPELINE_MODEL_PARALLEL_SIZE=$pipeline_model_parallel_size
+        export EXPERT_MODEL_PARALLEL_SIZE=$expert_model_parallel_size
         export TRAIN_ITERS=$train_iters
         export WANDB_RUN_GROUP="ablation-$flops"
         export WANDB_NAME="$SLURM_JOB_ID"
