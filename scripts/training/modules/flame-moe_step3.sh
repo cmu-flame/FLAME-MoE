@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm -rvf $SSD_MOUNT
+rm -rf $SSD_MOUNT
