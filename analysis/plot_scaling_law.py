@@ -20,7 +20,7 @@ frontier = pd.read_csv("https://docs.google.com/spreadsheets/d/1sIr9HRwYbUXKzlsk
 
 for run in api.runs("haok/flame-moe", {"group": {"$regex": "ablation"}}):
     if run.state != "finished": continue
-    flops = run.group.split("-").pop()
+    flops = float(run.group.split("-").pop())  # <--- parse flops as float here
     loss = run.summary["lm loss validation"]
     num_layers, hidden_size = run.config["num_layers"], run.config["hidden_size"]
     selected = frontier[(frontier["num_layers"] == num_layers) & (frontier["hidden_size"] == hidden_size)]
@@ -40,7 +40,7 @@ import seaborn as sns
 import numpy as np
 
 # Step 1: create a consistent flops → color map
-unique_flops = df['flops'].unique()
+unique_flops = np.sort(df['flops'].unique())  # <--- sort flops numerically
 palette = sns.color_palette("viridis", as_cmap=False, n_colors=len(unique_flops))
 flops_to_color = dict(zip(unique_flops, palette))
 
