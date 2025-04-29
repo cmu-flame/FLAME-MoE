@@ -31,8 +31,8 @@ cd Megatron-LM && torchrun "${TORCH_ARGS[@]}" pretrain_gpt.py \
 TORCHRUN_PID=$!
 (
     while kill -0 $TORCHRUN_PID 2>/dev/null; do
-        gcloud storage rsync --recursive $SSD_WEIGHTS $TRAIN_WEIGHTS
         sleep 30m
+        gcloud storage rsync --recursive $SSD_WEIGHTS $TRAIN_WEIGHTS
     done
 ) &
 
