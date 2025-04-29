@@ -24,4 +24,4 @@ export MICRO_BATCH_SIZE=4
 export EXPERT_MODEL_PARALLEL_SIZE=8
 export TRAIN_ITERS=18857
 export WANDB_RUN_GROUP=testing-2.4e20
-sbatch --nodes=8 scripts/training/flame-moe.sh
+sbatch --nodes=8 --exclude=orchard-flame-26 scripts/training/flame-moe.sh
