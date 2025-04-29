@@ -2,18 +2,6 @@
 
 # Optimal, according to the scaling law, is around 2.4B.
 
-# 2.5B Active Parameters
-export NUM_LAYERS=27
-export HIDDEN_SIZE=2048
-export FFN_HIDDEN_SIZE=10944
-export MOE_FFN_HIDDEN_SIZE=1408
-export MOE_LAYER_FREQ=[0]*1+[1]*26
-export MICRO_BATCH_SIZE=1
-export EXPERT_MODEL_PARALLEL_SIZE=8
-export TRAIN_ITERS=7619
-export WANDB_RUN_GROUP=testing-2.4e20
-sbatch scripts/training/flame-moe.sh
-
 # 2.2B Active Parameters
 export NUM_LAYERS=24
 export HIDDEN_SIZE=2048
@@ -36,4 +24,4 @@ export MICRO_BATCH_SIZE=2
 export EXPERT_MODEL_PARALLEL_SIZE=8
 export TRAIN_ITERS=18857
 export WANDB_RUN_GROUP=testing-2.4e20
-sbatch scripts/training/flame-moe.sh
+sbatch --nodes=8 scripts/training/flame-moe.sh
