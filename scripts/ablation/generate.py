@@ -5,7 +5,7 @@ from pathlib import Path
 script = r"""
 #!/bin/bash
 
-#SBATCH --job-name=flame-moe-ablation
+#SBATCH --job-name=search
 #SBATCH --output=logs/%x/%A/%j/stdout.log
 
 #SBATCH --partition=flame
@@ -69,7 +69,7 @@ def main():
                 configs += f'" # {n}\n'
                 n += 1
 
-    file = Path(f"scripts/ablation/flame-moe.sh")
+    file = Path(f"scripts/ablation/search.sh")
     file.write_text(script.format(length=n - 1, configs=configs) + "\n")
     file.chmod(file.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 

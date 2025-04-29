@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=flame-moe-ablation
+#SBATCH --job-name=search
 #SBATCH --output=logs/%x/%A/%j/stdout.log
 
 #SBATCH --partition=flame
