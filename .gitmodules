@@ -1,6 +1,6 @@
 [submodule "Megatron-LM"]
 	path = Megatron-LM
-	url = https://github.com/NVIDIA/Megatron-LM
+	url = https://github.com/haok1402/Megatron-LM
 [submodule "apex"]
 	path = apex
 	url = https://github.com/NVIDIA/apex
