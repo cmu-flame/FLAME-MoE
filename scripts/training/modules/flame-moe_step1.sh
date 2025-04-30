@@ -1,4 +1,5 @@
 #!/bin/bash
+# Download the dataset.
 
 i=1; host=$(hostname)
 mkdir -p $SSD_DATASET

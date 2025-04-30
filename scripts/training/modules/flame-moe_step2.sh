@@ -1,4 +1,5 @@
 #!/bin/bash
+# Run the training with weights upload in the background.
 
 export OMP_NUM_THREADS=16
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true
