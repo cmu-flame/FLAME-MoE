@@ -12,7 +12,7 @@ export MICRO_BATCH_SIZE=1
 export EXPERT_MODEL_PARALLEL_SIZE=8
 export TRAIN_ITERS=8495
 export WANDB_RUN_GROUP=testing-2.4e20
-sbatch --nodes=4 scripts/training/flame-moe.sh
+sbatch --nodes=8 scripts/training/flame-moe.sh
 
 # 1.0B Active Parameters
 export NUM_LAYERS=18
