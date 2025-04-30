@@ -25,6 +25,7 @@ SAVE_ARGS=(
     --tensorboard-dir $SSD_WEIGHTS
 )
 
+mkdir -p $SSD_WEIGHTS
 cd Megatron-LM && torchrun "${TORCH_ARGS[@]}" pretrain_gpt.py \
     "${MODEL_ARGS[@]}" "${INFRA_ARGS[@]}" "${TRAIN_ARGS[@]}" "${DATA_ARGS[@]}" "${SAVE_ARGS[@]}" &
 
@@ -32,9 +33,9 @@ TORCHRUN_PID=$!
 (
     while kill -0 $TORCHRUN_PID 2>/dev/null; do
         sleep 30m
-        gcloud storage rsync --recursive $SSD_WEIGHTS $TRAIN_WEIGHTS
+        gsutil -m rsync -r $SSD_WEIGHTS $TRAIN_WEIGHTS
     done
 ) &
 
 wait $TORCHRUN_PID
-gcloud storage rsync --recursive $SSD_WEIGHTS $TRAIN_WEIGHTS
+gsutil -m rsync -r $SSD_WEIGHTS $TRAIN_WEIGHTS

@@ -1,4 +1,12 @@
 #!/bin/bash
 
-mkdir -p $SSD_DATASET $SSD_WEIGHTS
-gsutil -o "GSUtil:sliced_object_download_max_components=0" -m rsync -r $TRAIN_DATASET $SSD_DATASET
+i=1; host=$(hostname)
+mkdir -p $SSD_DATASET
+
+until gsutil -q -m rsync -r $TRAIN_DATASET $SSD_DATASET; do
+    echo "[$host] Retry attempt $i"
+    delay=$((2**i))
+    [ $delay -gt 32 ] && delay=32
+    sleep $delay
+    i=$((i + 1))
+done
