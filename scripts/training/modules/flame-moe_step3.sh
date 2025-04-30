@@ -1,4 +1,3 @@
 #!/bin/bash
-# Clean up the space after the job exits.
 
-rm -rf $SSD_MOUNT
+rm -rvf $SSD_MOUNT
