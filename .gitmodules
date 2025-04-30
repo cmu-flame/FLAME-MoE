@@ -1,6 +1,7 @@
 [submodule "Megatron-LM"]
 	path = Megatron-LM
 	url = https://github.com/haok1402/Megatron-LM
+	branch = multi-nodes
 [submodule "apex"]
 	path = apex
 	url = https://github.com/NVIDIA/apex
