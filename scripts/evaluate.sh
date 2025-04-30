@@ -33,4 +33,4 @@ cd lm-evaluation-harness && PYTHONPATH=$PWD/../Megatron-LM accelerate launch -m 
     --load $SSD_WEIGHTS \
     --model megatron_lm \
     --tasks "arc_easy,arc_challenge,boolq,hellaswag,winogrande,piqa,race,lambada_openai" \
-    --output_path ../logs/results/flame-moe/$JOBID
+    --output_path ../results/flame-moe/$JOBID
