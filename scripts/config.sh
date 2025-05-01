@@ -1,5 +1,7 @@
 #!/bin/bash
 
+gcloud config set core/disable_file_logging True
+
 export GCP_MOUNT="gs://cmu-gpucloud-haok/flame-moe"
 export SSD_MOUNT="/mnt/localssd/slurm-$SLURM_JOB_ID"
 
