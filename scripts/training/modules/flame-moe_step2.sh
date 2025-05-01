@@ -3,7 +3,6 @@
 # Setup environment variable for training and debugging
 export OMP_NUM_THREADS=16
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true
-export TORCH_NCCL_HEARTBEAT_TIMEOUT_SEC=1800
 export TORCH_NCCL_TRACE_BUFFER_SIZE=8
 export TORCH_NCCL_DUMP_ON_TIMEOUT=1
 
