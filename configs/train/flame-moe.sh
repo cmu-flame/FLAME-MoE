@@ -19,8 +19,6 @@ INFRA_ARGS=(
     --overlap-grad-reduce
     --overlap-param-gather
     --moe-token-dispatcher-type alltoall
-    --distributed_backend nccl
-    --distributed_timeout_minutes 30
     --bf16
 )
 
