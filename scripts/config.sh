@@ -3,7 +3,7 @@
 gcloud config set core/disable_file_logging True
 
 export GCP_MOUNT="gs://cmu-gpucloud-haok/flame-moe"
-export SSD_MOUNT="/mnt/localssd/slurm-$SLURM_JOB_ID"
+export SSD_MOUNT="/tmp/slurm-$SLURM_JOB_ID"
 
 export GCP_DATASET="$GCP_MOUNT/dataset"
 export SSD_DATASET="$SSD_MOUNT/dataset"
