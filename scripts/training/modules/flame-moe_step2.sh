@@ -33,7 +33,7 @@ TORCHRUN_PID=$!
 (
     while kill -0 $TORCHRUN_PID 2>/dev/null; do
         until gcloud storage rsync --recursive $SSD_WEIGHTS/ $TRAIN_WEIGHTS/; do continue; done
-        sleep 1m
+        sleep 10m
     done
 ) &
 
