@@ -16,7 +16,7 @@ SAVE_ARGS=(
     --log-interval 5
     --log-throughput
     --save $SSD_WEIGHTS
-    --save-interval 10
+    --save-interval 2000
     --load $SSD_WEIGHTS
     --eval-interval 1000
     --wandb-save-dir $SSD_WEIGHTS
