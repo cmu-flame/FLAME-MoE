@@ -1,10 +1,12 @@
 #!/bin/bash
 
+# Setup environment variable for training and debugging
 export OMP_NUM_THREADS=16
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true
 export TORCH_NCCL_TRACE_BUFFER_SIZE=8
 export TORCH_NCCL_DUMP_ON_TIMEOUT=1
 
+# Configure Megatron arguments
 source configs/model/flame-moe.sh
 source configs/train/flame-moe.sh
 
@@ -27,10 +29,12 @@ SAVE_ARGS=(
     --tensorboard-dir $SSD_WEIGHTS
 )
 
+# Start training with torchrun
 mkdir -p $SSD_WEIGHTS
 cd Megatron-LM && torchrun "${TORCH_ARGS[@]}" pretrain_gpt.py \
     "${MODEL_ARGS[@]}" "${INFRA_ARGS[@]}" "${TRAIN_ARGS[@]}" "${DATA_ARGS[@]}" "${SAVE_ARGS[@]}" &
 
+# Upload weights every 15 minutes while training is running
 TORCHRUN_PID=$!
 (
     while kill -0 $TORCHRUN_PID 2>/dev/null; do
@@ -39,5 +43,6 @@ TORCHRUN_PID=$!
     done
 ) &
 
+# Final upload after training completes
 wait $TORCHRUN_PID
 until gcloud storage rsync --recursive $SSD_WEIGHTS/ $TRAIN_WEIGHTS/; do continue; done
