@@ -32,7 +32,7 @@ export MOE_FFN_HIDDEN_SIZE=1408
 export MOE_LAYER_FREQ="[0]*1+[1]*17"
 export MICRO_BATCH_SIZE=4
 export EXPERT_MODEL_PARALLEL_SIZE=8
-export TRAIN_ITERS=18857
+export TRAIN_ITERS=11029
 export WANDB_RUN_GROUP=testing-2.4e20
 sbatch --nodes=8 scripts/training/flame-moe.sh
 
