@@ -20,9 +20,9 @@ SAVE_ARGS=(
     --log-interval 5
     --log-throughput
     --save $SSD_WEIGHTS
-    --save-interval 2000
+    --save-interval ${SAVE_INTERVAL:-2000}
     --load $SSD_WEIGHTS
-    --eval-interval 1000
+    --eval-interval ${EVAL_INTERVAL:-1000}
     --wandb-save-dir $SSD_WEIGHTS
     --wandb-project $WANDB_PROJECT
     --wandb-exp-name $SLURM_JOB_ID
