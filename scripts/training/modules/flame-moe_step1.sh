@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# Delete leftover storage from my previous jobs
+# Remove leftover directories from previous jobs
 find /mnt/localssd -mindepth 1 -maxdepth 1 -type d -user $USER \
-    ! -name docker ! -name job_tmp ! -name lost+found ! \
-    -name "slurm-$SLURM_JOB_ID" -exec rm -rvf {} \;
+    ! -name docker ! -name job_tmp ! -name lost+found ! -exec rm -rvf {} \;
 
-# Download the training dataset (retry until successful)
+# Download training dataset (retry until success)
 mkdir -p $SSD_DATASET
-until gcloud storage cp --recursive $TRAIN_DATASET/ $SSD_DATASET/; do continue; done
+echo "[$(hostname)] Fetching $TRAIN_DATASET ..."
+until gcloud storage cp --quiet --recursive $TRAIN_DATASET/ $SSD_DATASET/; do continue; done
+echo "[$(hostname)] Done."

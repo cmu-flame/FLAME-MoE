@@ -27,4 +27,3 @@ export TRAIN_WEIGHTS="${TRAIN_WEIGHTS:-$GCP_WEIGHTS/flame-moe/$SLURM_JOB_ID}"
 
 srun -W 0 scripts/training/modules/flame-moe_step1.sh
 srun -W 0 scripts/training/modules/flame-moe_step2.sh
-srun -W 0 scripts/training/modules/flame-moe_step3.sh
