@@ -1,10 +1,10 @@
 #!/bin/bash
+# Download all files from the training dataset directory to local storage.
+# Each file is downloaded individually with automatic retry until successful.
 
-# Remove leftover directories from previous jobs
-docker run --rm -v /mnt/localssd:/mnt/localssd ubuntu bash -c "find /mnt/localssd -mindepth 1 -maxdepth 1 ! -name docker ! -name job_tmp -exec rm -rvf {} +"
-
-# Download training dataset (retry until success)
-echo "[$(hostname)] Fetching $TRAIN_DATASET ..."
 mkdir -p $SSD_DATASET
-until gcloud storage cp --recursive $TRAIN_DATASET/ $SSD_DATASET/; do continue; done
-echo "[$(hostname)] Done."
+
+gcloud storage ls $TRAIN_DATASET/ | while read -r uri; do
+    echo "[$(hostname)] Fetching $uri ..."
+    until gcloud storage cp --no-user-output-enabled $uri $SSD_DATASET/; do continue; done
+done
