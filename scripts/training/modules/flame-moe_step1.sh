@@ -6,5 +6,5 @@ docker run --rm -v /mnt/localssd:/mnt/localssd ubuntu bash -c "find /mnt/localss
 # Download training dataset (retry until success)
 echo "[$(hostname)] Fetching $TRAIN_DATASET ..."
 mkdir -p $SSD_DATASET
-until gcloud storage cp --quiet --recursive $TRAIN_DATASET/ $SSD_DATASET/; do continue; done
+until gcloud storage cp --recursive $TRAIN_DATASET/ $SSD_DATASET/; do continue; done
 echo "[$(hostname)] Done."
