@@ -1,12 +1,13 @@
 #!/bin/bash
+# Training launcher script for FLAME-MoE.
 
-# Setup environment variable for training and debugging
+# Setup environment variables for training and debugging
 export OMP_NUM_THREADS=16
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true
 export TORCH_NCCL_TRACE_BUFFER_SIZE=8
 export TORCH_NCCL_DUMP_ON_TIMEOUT=1
 
-# Configure Megatron arguments
+# Setup required arguments to Megatron-LM
 source configs/model/flame-moe.sh
 source configs/train/flame-moe.sh
 
@@ -30,12 +31,12 @@ SAVE_ARGS=(
 )
 
 # Start training with torchrun
-mkdir -p $SSD_WEIGHTS
 cd Megatron-LM && torchrun "${TORCH_ARGS[@]}" pretrain_gpt.py \
     "${MODEL_ARGS[@]}" "${INFRA_ARGS[@]}" "${TRAIN_ARGS[@]}" "${DATA_ARGS[@]}" "${SAVE_ARGS[@]}" &
+TORCHRUN_PID=$!
 
 # Upload weights every 15 minutes while training is running
-TORCHRUN_PID=$!
+mkdir -p $SSD_WEIGHTS
 (
     while kill -0 $TORCHRUN_PID 2>/dev/null; do
         until gcloud storage rsync --recursive $SSD_WEIGHTS/ $TRAIN_WEIGHTS/; do continue; done
