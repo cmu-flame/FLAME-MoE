@@ -10,4 +10,4 @@ export PIPELINE_MODEL_PARALLEL_SIZE=8
 export EXPERT_MODEL_PARALLEL_SIZE=32
 export TRAIN_ITERS=500
 export WANDB_RUN_GROUP=release
-sbatch --nodes=8 scripts/training/flame-moe.sh
+sbatch --job-name=flame-moe-14.8b --nodes=8 scripts/training/flame-moe.sh
