@@ -24,6 +24,7 @@ MODEL_ARGS=(
     --moe-router-pre-softmax
     --moe-router-score-function softmax
     --moe-aux-loss-coeff 0.01
+    --moe-z-loss-coeff 0.001
 
     # Regularization
     --hidden-dropout 0.0
