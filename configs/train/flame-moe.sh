@@ -20,7 +20,7 @@ INFRA_ARGS=(
     --overlap-param-gather
     --moe-token-dispatcher-type alltoall
     --distributed-timeout-minutes 30
-    --bf16
+    --fp8-format hybrid
 )
 
 TRAIN_ARGS=(
