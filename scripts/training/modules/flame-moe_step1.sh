@@ -4,7 +4,7 @@
 
 mkdir -p $SSD_DATASET
 
-gcloud storage ls $TRAIN_DATASET/ | while read -r uri; do
-    echo "[$(hostname)] Fetching $uri ..."
-    until gcloud storage cp --no-user-output-enabled $uri $SSD_DATASET/; do continue; done
-done
+gcloud storage ls $TRAIN_DATASET/ | xargs -P 8 -I {} bash -c '
+    echo "[$(hostname)] Fetching {} ..."
+    until gcloud storage cp --no-user-output-enabled {} '$SSD_DATASET/'; do continue; done
+'
