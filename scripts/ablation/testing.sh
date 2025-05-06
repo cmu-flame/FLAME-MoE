@@ -19,9 +19,12 @@ export FFN_HIDDEN_SIZE=10944
 export MOE_FFN_HIDDEN_SIZE=1408
 export MOE_LAYER_FREQ="[0]*1+[1]*23"
 export MICRO_BATCH_SIZE=2
+export PIPELINE_MODEL_PARALLEL_SIZE=4
 export EXPERT_MODEL_PARALLEL_SIZE=8
 export TRAIN_ITERS=8495
-export WANDB_RUN_GROUP=testing-2.4e20
+export SAVE_INTERVAL=849
+export EVAL_INTERVAL=849
+export WANDB_RUN_GROUP=debug
 sbatch --nodes=8 scripts/training/flame-moe.sh
 
 # 1.7B Active Parameters
