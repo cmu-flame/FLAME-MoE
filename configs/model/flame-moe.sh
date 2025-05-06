@@ -21,6 +21,7 @@ MODEL_ARGS=(
     --moe-router-topk 6
     --moe-shared-expert-intermediate-size $((2 * MOE_FFN_HIDDEN_SIZE))
     --moe-layer-freq $MOE_LAYER_FREQ
+    --moe-router-dtype fp32
     --moe-router-pre-softmax
     --moe-router-score-function softmax
     --moe-aux-loss-coeff 0.01
