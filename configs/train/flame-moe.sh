@@ -16,7 +16,6 @@ INFRA_ARGS=(
     --use-distributed-optimizer
     --overlap-grad-reduce
     --overlap-param-gather
-    --no-bias-swiglu-fusion
     --moe-token-dispatcher-type alltoall
     --distributed-timeout-minutes 30
     --bf16
