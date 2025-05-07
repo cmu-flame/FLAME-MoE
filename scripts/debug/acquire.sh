@@ -7,7 +7,7 @@
 #SBATCH --time=14-00:00:00
 #SBATCH --qos=flame-t1b_g1_qos
 
-#SBATCH --nodes=8
+#SBATCH --nodes=2
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=1536G
 #SBATCH --cpus-per-task=208
