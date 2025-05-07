@@ -12,7 +12,7 @@ source configs/train/flame-moe.sh
 DATA_ARGS=(
     --seq-length 2048
     --data-path $(find $SSD_DATASET -type f -name '*.bin' -exec sh -c 'printf "1.0 %s " "${1%.bin}"' _ {} \; | sed 's/ $//')
-    --split 90,5,5
+    --split 95,0,5
 )
 
 SAVE_ARGS=(
