@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=debug
+#SBATCH --job-name=acquire
 #SBATCH --output=logs/%x/%j.log
 
 #SBATCH --partition=flame
-#SBATCH --time=2-00:00:00
+#SBATCH --time=14-00:00:00
 #SBATCH --qos=flame-t1b_g1_qos
 
-#SBATCH --nodes=2
+#SBATCH --nodes=8
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=1536G
 #SBATCH --cpus-per-task=208
