@@ -19,8 +19,7 @@ SAVE_ARGS=(
     --test-mode
     --skip-train
     --load $SSD_WEIGHTS
-    --ckpt-step $CKPT_STEP
-    --eval-iters 1
+    --eval-iters 100
 )
 
 cd Megatron-LM && torchrun "${TORCH_ARGS[@]}" pretrain_gpt.py \

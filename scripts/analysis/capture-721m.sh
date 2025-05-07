@@ -19,13 +19,14 @@ export TRAIN_JOB_NAME=flame-moe-721m
 export TRAIN_WEIGHTS=$GCP_WEIGHTS/$TRAIN_JOB_NAME/$TRAIN_JOB_ID
 export TRAIN_DATASET=$GCP_DATASET/dclm-138b/tokenized/EleutherAI/pythia-12b
 
-bash scripts/analysis/modules/capture_step1.sh
+# bash scripts/analysis/modules/capture_step1.sh
 
 for item in $SSD_WEIGHTS/iter_*; do
-    name=$(basename "$item")
-    export CKPT_STEP=${name#iter_}
-    export EACT_SAVE=$SSD_MOUNT/actives/$CKPT_STEP
-    echo "Capturing $CKPT_STEP ..."
+    name=$(basename $item)
+    step=$((10#${name#iter_}))
+    export EACT_SAVE=$SSD_MOUNT/actives/$step
+    echo $step > $SSD_WEIGHTS/latest_checkpointed_iteration.txt
+    echo "Capturing $step ..."
     bash scripts/analysis/modules/capture_step2.sh
 done
 
