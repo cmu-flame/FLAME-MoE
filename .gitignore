@@ -7,3 +7,4 @@
 /slurm-*
 
 /scripts/secret.sh
+.env*
