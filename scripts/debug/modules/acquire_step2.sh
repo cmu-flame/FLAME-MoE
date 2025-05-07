@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sleep 48h
+sleep 14d
