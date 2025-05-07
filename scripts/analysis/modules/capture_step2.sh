@@ -16,8 +16,10 @@ DATA_ARGS=(
 )
 
 SAVE_ARGS=(
+    --test-mode
     --skip-train
     --load $SSD_WEIGHTS
+    --ckpt-step $CKPT_STEP
     --eval-iters 1
 )
 
