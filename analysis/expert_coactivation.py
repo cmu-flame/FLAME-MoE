@@ -17,7 +17,7 @@ layer_nums = ["2", "6", "12"]
 K = 16
 num_experts = 64
 
-ckpt_step = "880"
+ckpt_step = "5280"
 mount = "/tmp/slurm-31207"
 
 ###
@@ -50,7 +50,7 @@ def compute_and_save(layer_num):
     if not files:
         raise RuntimeError(f"No data found in {workspace}")
 
-    with ProcessPoolExecutor(max_workers=196) as executor:
+    with ProcessPoolExecutor(max_workers=104) as executor:
         futures = [executor.submit(worker, file) for file in files]
         for future in tqdm(as_completed(futures), total=len(futures), desc=f"Processing Layer {layer_num}", ncols=80):
             result = future.result()
