@@ -133,4 +133,4 @@ layer_str = "-".join(layer_nums)
 out_file = Path(f"figures/expert-coactivation/{model_scale}/{ckpt_step}/{layer_str}.pdf")
 out_file.parent.mkdir(parents=True, exist_ok=True)
 
-plt.savefig(out_file, bbox_inches='tight', pad_inches=0.01)
+plt.savefig(out_file, bbox_inches='tight', pad_inches=0)
