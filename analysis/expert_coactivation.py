@@ -11,13 +11,13 @@ from matplotlib.colors import LinearSegmentedColormap
 # Parameters
 ###
 
-model_scale = "flame-moe-721m"
-layer_nums = ["2", "6", "12"]
+model_scale = "flame-moe-1.7b"
+layer_nums = ["2", "6", "12", "18"]
 
 K = 16
 num_experts = 64
 
-ckpt_step = "5280"
+ckpt_step = "11029"
 mount = "/tmp/slurm-31207"
 
 ###
@@ -25,8 +25,9 @@ mount = "/tmp/slurm-31207"
 ###
 
 def worker(file: Path):
-    data = torch.load(file, map_location="cpu")
-    assert data.shape == (16384, 6)
+    probs = torch.load(file, map_location="cpu")
+    _, expert_ids = probs.nonzero(as_tuple=True)
+    data = expert_ids.view(probs.shape[0], 6)
     maps = [[0 for _ in range(num_experts)] for _ in range(num_experts)]
     for rows in data:
         for i in rows:
@@ -50,7 +51,7 @@ def compute_and_save(layer_num):
     if not files:
         raise RuntimeError(f"No data found in {workspace}")
 
-    with ProcessPoolExecutor(max_workers=104) as executor:
+    with ProcessPoolExecutor(max_workers=64) as executor:
         futures = [executor.submit(worker, file) for file in files]
         for future in tqdm(as_completed(futures), total=len(futures), desc=f"Processing Layer {layer_num}", ncols=80):
             result = future.result()
