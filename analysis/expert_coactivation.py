@@ -107,7 +107,7 @@ fig, axs = plt.subplots(1, len(layer_nums), figsize=(6 * len(layer_nums), 6))
 if len(layer_nums) == 1:
     axs = [axs]
 
-cmap = LinearSegmentedColormap.from_list("white_to_tartan", ["white", "#FDB515"])
+cmap = LinearSegmentedColormap.from_list("white_to_tartan", ["white", "#043673"])
 
 for ax, (filtered_record, top_expert_indices), layer_num in zip(axs, filtered_records, layer_nums):
     X, Y = np.meshgrid(np.arange(K + 1), np.arange(K + 1))
