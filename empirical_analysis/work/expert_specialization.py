@@ -67,9 +67,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--layer-number", type=int, default=18)
     parser.add_argument("--expert-index", type=int, default=24)
+    parser.add_argument("--checkpoint-step", type=int, default=11029)
     parsed = parser.parse_args()
-    for checkpoint_step in reversed([1100, 2200, 3300, 4400, 5500, 6600, 7700, 8800, 9900, 11029]):
-        job_step0(parsed.layer_number, parsed.expert_index, checkpoint_step)
+    assert 2 <= parsed.layer_number <= 18
+    assert 0 <= parsed.expert_index <= 63
+    job_step0(parsed.layer_number, parsed.expert_index, parsed.checkpoint_step)
 
 if __name__ == "__main__":
     main()
