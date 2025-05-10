@@ -46,7 +46,7 @@ def job_step0(layer_number: int, expert_index: int, ckpt_step: int):
     # Run the jobs and store their returns
     jobs: List[Future] = []
     barrier: List[Tuple[Tensor, Tensor]] = []
-    with ProcessPoolExecutor(max_workers=16) as executor:
+    with ProcessPoolExecutor(max_workers=24) as executor:
         for a in args:
             jobs.append(executor.submit(job_step1, *a))
         for j in tqdm(as_completed(jobs), total=len(jobs), desc="Working", ncols=80):
@@ -58,22 +58,17 @@ def job_step0(layer_number: int, expert_index: int, ckpt_step: int):
     for s, a in tqdm(barrier, desc="Gathering", ncols=80):
         sample_count += s
         active_count += a
-    specialization = torch.where(
-        sample_count > 0,
-        active_count.float() / sample_count.float(),
-        torch.zeros_like(sample_count, dtype=torch.float)
-    )
 
     # Dump to file for visualization
     dump_path.parent.mkdir(parents=True, exist_ok=True)    
-    torch.save(specialization, dump_path)
+    torch.save((sample_count, active_count), dump_path)
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--layer-number", type=int, default=18)
     parser.add_argument("--expert-index", type=int, default=24)
     parsed = parser.parse_args()
-    for ckpt_step in [1100, 2200, 3300, 4400, 5500, 6600, 7700, 8800, 9900, 11029]:
+    for ckpt_step in reversed([1100, 2200, 3300, 4400, 5500, 6600, 7700, 8800, 9900, 11029]):
         job_step0(parsed.layer_number, parsed.expert_index, ckpt_step)
 
 if __name__ == "__main__":
