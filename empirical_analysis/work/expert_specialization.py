@@ -32,7 +32,7 @@ def job_step0(layer_number: int, expert_index: int, checkpoint_step: int):
     print(f"Analyzing : layer_number = {layer_number}, expert_index = {expert_index}, checkpoint_step = {checkpoint_step}")
 
     # Skip completed work
-    dump_path = Path(f"results/expert-specialization/flame-moe-1.7b/{checkpoint_step}/{layer_number}-{expert_index}.pt")
+    dump_path = Path(f"/project/flame/haok/results/expert-specialization/flame-moe-1.7b/{checkpoint_step}/{layer_number}-{expert_index}.pt")
     if dump_path.exists(): return
 
     # Discover the jobs
