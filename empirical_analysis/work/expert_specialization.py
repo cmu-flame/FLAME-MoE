@@ -46,7 +46,7 @@ def job_step0(layer_number: int, expert_index: int, ckpt_step: int):
     # Run the jobs and store their returns
     jobs: List[Future] = []
     barrier: List[Tuple[Tensor, Tensor]] = []
-    with ProcessPoolExecutor(max_workers=24) as executor:
+    with ProcessPoolExecutor(max_workers=16) as executor:
         for a in args:
             jobs.append(executor.submit(job_step1, *a))
         for j in tqdm(as_completed(jobs), total=len(jobs), desc="Working", ncols=80):
