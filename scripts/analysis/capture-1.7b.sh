@@ -25,6 +25,7 @@ for item in $(ls -d $SSD_WEIGHTS/iter_* | sort -r); do
     name=$(basename $item)
     step=$((10#${name#iter_}))
     export EACT_SAVE=$SSD_MOUNT/actives/$step
+    export TIDS_SAVE=$SSD_MOUNT/samples
     echo $step > $SSD_WEIGHTS/latest_checkpointed_iteration.txt
     echo "Capturing $step ..."
     bash scripts/analysis/modules/capture_step2.sh
