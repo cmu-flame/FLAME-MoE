@@ -27,12 +27,12 @@ def job_step1(sample_path: Path, active_path: Path, expert_index: int, moe_route
     active_count = torch.bincount(sample, minlength=50277)
     return sample_count, active_count
 
-def job_step0(layer_number: int, expert_index: int, ckpt_step: int):
+def job_step0(layer_number: int, expert_index: int, checkpoint_step: int):
 
-    print(f"Analyzing : layer_number = {layer_number}, expert_index = {expert_index}, ckpt_step = {ckpt_step}")
+    print(f"Analyzing : layer_number = {layer_number}, expert_index = {expert_index}, checkpoint_step = {checkpoint_step}")
 
     # Skip completed work
-    dump_path = Path(f"results/expert-specialization/flame-moe-1.7b/{ckpt_step}/{layer_number}-{expert_index}.pt")
+    dump_path = Path(f"results/expert-specialization/flame-moe-1.7b/{checkpoint_step}/{layer_number}-{expert_index}.pt")
     if dump_path.exists(): return
 
     # Discover the jobs
@@ -40,7 +40,7 @@ def job_step0(layer_number: int, expert_index: int, ckpt_step: int):
     samples = Path("/tmp/slurm-31207/samples")
     args: List[Tuple[Path, Path, int, int]] = []
     for sample_path in samples.iterdir():
-        active_path = Path(actives, str(ckpt_step), str(layer_number), sample_path.name)
+        active_path = Path(actives, str(checkpoint_step), str(layer_number), sample_path.name)
         args.append((sample_path, active_path, expert_index))
 
     # Run the jobs and store their returns
@@ -68,8 +68,8 @@ def main():
     parser.add_argument("--layer-number", type=int, default=18)
     parser.add_argument("--expert-index", type=int, default=24)
     parsed = parser.parse_args()
-    for ckpt_step in reversed([1100, 2200, 3300, 4400, 5500, 6600, 7700, 8800, 9900, 11029]):
-        job_step0(parsed.layer_number, parsed.expert_index, ckpt_step)
+    for checkpoint_step in reversed([1100, 2200, 3300, 4400, 5500, 6600, 7700, 8800, 9900, 11029]):
+        job_step0(parsed.layer_number, parsed.expert_index, checkpoint_step)
 
 if __name__ == "__main__":
     main()
