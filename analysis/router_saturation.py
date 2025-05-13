@@ -9,7 +9,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 # Do the gathering.
 ###
 
-mount, k = Path("/tmp/slurm-31207/actives"), 2
+mount, k = Path("/tmp/slurm-31207/actives"), 8
 file = Path(f"results/router-saturation/flame-moe-1.7b/{k}.pkl")
 file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -70,4 +70,3 @@ if not file.exists():
 ###
 # Do the plotting.
 ###
-
