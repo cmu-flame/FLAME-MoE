@@ -111,6 +111,7 @@ for config in "${configs[@]}"; do
         export MOE_LAYER_FREQ=$moe_layer_freq
         export MICRO_BATCH_SIZE=$micro_batch_size
         export EXPERT_MODEL_PARALLEL_SIZE=$expert_model_parallel_size
+        export PIPELINE_MODEL_PARALLEL_SIZE=1
         export TRAIN_ITERS=$train_iters
         export WANDB_RUN_GROUP="ablation-$flops"
         export WANDB_NAME="$SLURM_JOB_ID"
