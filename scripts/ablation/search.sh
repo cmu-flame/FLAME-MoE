@@ -115,6 +115,8 @@ for config in "${configs[@]}"; do
         export TRAIN_ITERS=$train_iters
         export WANDB_RUN_GROUP="ablation-$flops"
         export WANDB_NAME="$SLURM_JOB_ID"
+        export SAVE_INTERVAL=$train_iters
+        export EVAL_INTERVAL=$train_iters
         export TRAIN_DATASET="$GCP_DATASET/dclm-138b/tokenized/EleutherAI/pythia-12b"
         bash scripts/training/flame-moe.sh
     fi
