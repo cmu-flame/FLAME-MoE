@@ -18,7 +18,7 @@ pattern = re.compile(r"""
     ([\d.]+)
     """, re.VERBOSE)
 
-def plot(file: Path, mode: str, title: str, label: Optional[str] = None):
+def plot(file: Path, mode: str, title: str, label: Optional[str] = None, color: Optional[str] = None):
     x: List[int] = []
     y: List[float] = []
     with file.open("r") as f:
@@ -29,16 +29,11 @@ def plot(file: Path, mode: str, title: str, label: Optional[str] = None):
             y.append(float(found.group(2 if mode == "latency" else 3)))
     df = pd.DataFrame({"x": x, "y": y})
     if mode == "latency": df["y"] = df["y"].apply(lambda x: x / 1000)
-    sns.lineplot(
-        data=df, x="x", y="y", label=label, 
-        linestyle="solid" if mode == "latency" else "dotted", marker="o",
-        linewidth=3, markersize=9
-    )
-    # plt.title(title, fontsize=24)
+    sns.lineplot(data=df, x="x", y="y", label=label, marker="o", linewidth=3, markersize=9, color=color)
+    plt.title(title, fontsize=24)
     plt.gca().set_ylabel("Elapsed Time per Step (s)" if mode == "latency" else "Throughput (TFLOPS/s/GPU)", fontsize=24)
-    plt.gca().set_xlabel("Training Step", fontsize=24)
+    plt.gca().set_xlabel("Training Steps", fontsize=24)
     plt.gca().tick_params(axis='both', labelsize=20)
-    plt.legend(frameon=False, fontsize=16)
 
 def dump(file: Path):
     file.parent.mkdir(parents=True, exist_ok=True)
@@ -47,27 +42,32 @@ def dump(file: Path):
     plt.close()
 
 w, h = 6, 6
+tartan_palette = ["#EF3A47", "#FDB515", "#009647", "#008F91", "#043673", "#007BC0"]
 
 plt.figure(figsize=(w, h))
-plot(Path("ep=2,pp=1,bs=1.log"), "latency", "PP=1", "EP=2")
-plot(Path("ep=4,pp=1,bs=2.log"), "latency", "PP=1", "EP=4")
-plot(Path("ep=8,pp=1,bs=4.log"), "latency", "PP=1", "EP=8")
+plot(Path("ep=2,pp=1,bs=1.log"), "latency", "PP=1", "EP=2", tartan_palette[0])
+plot(Path("ep=4,pp=1,bs=2.log"), "latency", "PP=1", "EP=4", tartan_palette[1])
+plot(Path("ep=8,pp=1,bs=4.log"), "latency", "PP=1", "EP=8", tartan_palette[2])
+plt.legend(frameon=False, fontsize=24, bbox_to_anchor=(0.5, 0.8))
 dump(Path("figures/infrastructure/pp1_latency.pdf"))
 
 plt.figure(figsize=(w, h))
-plot(Path("ep=1,pp=2,bs=4.log"), "latency", "PP=2", "EP=1")
-plot(Path("ep=2,pp=2,bs=4.log"), "latency", "PP=2", "EP=2")
-plot(Path("ep=4,pp=2,bs=4.log"), "latency", "PP=2", "EP=4")
+plot(Path("ep=1,pp=2,bs=4.log"), "latency", "PP=2", "EP=1", tartan_palette[0])
+plot(Path("ep=2,pp=2,bs=4.log"), "latency", "PP=2", "EP=2", tartan_palette[1])
+plot(Path("ep=4,pp=2,bs=4.log"), "latency", "PP=2", "EP=4", tartan_palette[2])
+plt.legend(frameon=False, fontsize=24, bbox_to_anchor=(0.5, 0.8))
 dump(Path("figures/infrastructure/pp2_latency.pdf"))
 
 plt.figure(figsize=(w, h))
-plot(Path("ep=2,pp=1,bs=1.log"), "throughput", "PP=1", "EP=2")
-plot(Path("ep=4,pp=1,bs=2.log"), "throughput", "PP=1", "EP=4")
-plot(Path("ep=8,pp=1,bs=4.log"), "throughput", "PP=1", "EP=8")
+plot(Path("ep=2,pp=1,bs=1.log"), "throughput", "PP=1", "EP=2", tartan_palette[0])
+plot(Path("ep=4,pp=1,bs=2.log"), "throughput", "PP=1", "EP=4", tartan_palette[1])
+plot(Path("ep=8,pp=1,bs=4.log"), "throughput", "PP=1", "EP=8", tartan_palette[2])
+plt.legend(frameon=False, fontsize=24, bbox_to_anchor=(0.5, 0.7))
 dump(Path("figures/infrastructure/pp1_throughput.pdf"))
 
 plt.figure(figsize=(w, h))
-plot(Path("ep=1,pp=2,bs=4.log"), "throughput", "PP=2", "EP=1")
-plot(Path("ep=2,pp=2,bs=4.log"), "throughput", "PP=2", "EP=2")
-plot(Path("ep=4,pp=2,bs=4.log"), "throughput", "PP=2", "EP=4")
+plot(Path("ep=1,pp=2,bs=4.log"), "throughput", "PP=2", "EP=1", tartan_palette[0])
+plot(Path("ep=2,pp=2,bs=4.log"), "throughput", "PP=2", "EP=2", tartan_palette[1])
+plot(Path("ep=4,pp=2,bs=4.log"), "throughput", "PP=2", "EP=4", tartan_palette[2])
+plt.legend(frameon=False, fontsize=24, bbox_to_anchor=(0.5, 0.7))
 dump(Path("figures/infrastructure/pp2_throughput.pdf"))
