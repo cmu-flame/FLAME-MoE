@@ -61,7 +61,11 @@ Launch training jobs for the desired model configurations:
 ```bash
 bash scripts/release/flame-moe-1.7b.sh
 bash scripts/release/flame-moe-721m.sh
+bash scripts/release/flame-moe-419m.sh
 bash scripts/release/flame-moe-290m.sh
+bash scripts/release/flame-moe-115m.sh
+bash scripts/release/flame-moe-98m.sh
+bash scripts/release/flame-moe-38m.sh
 ```
 
 ---
@@ -73,6 +77,6 @@ bash scripts/release/flame-moe-290m.sh
 Replace `...` with your training job ID:
 
 ```bash
-export JOBID=...
+export JOBID=...; export ITER=...
 sbatch scripts/evaluate.sh
 ```
