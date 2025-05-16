@@ -1,116 +1,78 @@
-# MoE Research
+# FLAME-MoE
 
-This repository provides research and training pipelines for Mixture of Experts (MoE) models. The MoE models enable efficient learning by leveraging a sparse selection of experts. Follow the instructions below to set up your environment, prepare datasets, train MoE models, and evaluate their performance.
+**FLAME-MoE** is a transparent, end-to-end research platform for Mixture-of-Experts (MoE) language models. It is designed to facilitate scalable training, evaluation, and experimentation with MoE architectures.
 
-## TODOs
+## 🔗 Model Checkpoints
 
-- [ ] DualPipe
-- [ ] DeepGEMM
-- [x] DeepEP, already integrated by [Megatron-LM](https://github.com/NVIDIA/Megatron-LM/tree/main/megatron/core/transformer/moe#leverage-deepseeks-deepep-for-high-performance-cross-node-token-dispatching).
+Explore our publicly released checkpoints on Hugging Face:
 
-## Quickstart Guide
+* [FLAME-MoE-1.7B-10.3B](https://huggingface.co/CMU-FLAME/FLAME-MoE-1.7B-10.3B)
+* [FLAME-MoE-721M-3.8B](https://huggingface.co/CMU-FLAME/FLAME-MoE-721M-3.8B)
+* [FLAME-MoE-419M-2.2B](https://huggingface.co/CMU-FLAME/FLAME-MoE-419M-2.2B)
+* [FLAME-MoE-290M-1.3B](https://huggingface.co/CMU-FLAME/FLAME-MoE-290M-1.3B)
+* [FLAME-MoE-115M-459M](https://huggingface.co/CMU-FLAME/FLAME-MoE-115M-459M)
+* [FLAME-MoE-98M-349M](https://huggingface.co/CMU-FLAME/FLAME-MoE-98M-349M)
+* [FLAME-MoE-38M-100M](https://huggingface.co/CMU-FLAME/FLAME-MoE-38M-100M)
 
-### 0. Setup the Environment
+---
 
-**Clone the Repository**
+## 🚀 Getting Started
 
-Clone the repository recursively to include all submodules:
+### 1. Clone the Repository
+
+Ensure you clone the repository **recursively** to include all submodules:
 
 ```bash
-git clone --recursive https://github.com/cxcscmu/MoE-Research
+git clone --recursive https://github.com/cmu-flame/MoE-Research
 cd MoE-Research
 ```
 
-**Create and Activate the Conda Environment**
+### 2. Set Up the Environment
 
-Ensure you have [Conda](https://www.anaconda.com/docs/getting-started/miniconda/install) installed, then run:
-
-```bash
-conda create -n MoE python=3.10
-conda activate MoE
-```
-
-**Install Dependencies**
-
-Install Megatron-LM:
+Set up the Conda environment using the provided script:
 
 ```bash
-pip install -r Megatron-LM/requirements/pytorch_24.10/requirements.txt
+sbatch scripts/miscellaneous/install.sh
 ```
 
-Install Apex with CUDA extensions:
+> **Note:** This assumes you're using a SLURM-managed cluster. Adapt accordingly if running locally.
+
+---
+
+## 📚 Data Preparation
+
+### 3. Download and Tokenize the Dataset
+
+Use the following SLURM jobs to download and tokenize the dataset:
 
 ```bash
-pushd apex
-pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation --config-settings "--build-option=--cpp_ext" --config-settings "--build-option=--cuda_ext" ./
-popd
+sbatch scripts/dataset/download.sh
+sbatch scripts/dataset/tokenize.sh
 ```
 
-Install Transformer Engine:
+---
+
+## 🧠 Training
+
+### 4. Train FLAME-MoE Models
+
+Launch training jobs for the desired model configurations:
 
 ```bash
-pushd TransformerEngine
-export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/nvtx/include:$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/cudnn/include
-export C_INCLUDE_PATH=$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/nvtx/include:$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/cudnn/include
-export CUDNN_PATH=$CONDA_PREFIX/lib/python3.10/site-packages/nvidia/cudnn
-export NVTE_FRAMEWORK=pytorch
-export MAX_JOBS=32
-pip install .
-popd
+bash scripts/release/flame-moe-1.7b.sh
+bash scripts/release/flame-moe-721m.sh
+bash scripts/release/flame-moe-290m.sh
 ```
 
-Install Language Model Evaluation Harness:
+---
+
+## 📈 Evaluation
+
+### 5. Evaluate the Model
+
+Replace `...` with your training job ID:
 
 ```bash
-pushd lm-evaluation-harness
-pip install -e .
-popd
-```
-
-Additional dependencies:
-
-```bash
-pip install transformers pybind11 tensorboard
-```
-
-**AWS CLI Requirement**
-
-Make sure you have [AWS CLI](https://aws.amazon.com/cli/) installed, as the DCLM dataset is hosted on Amazon S3.
-
-**API Key Setup**
-
-Create a file named `devsecret.env` to store credentials like the following:
-
-```
-export WANDB_API_KEY=<wandb_api_key>
-```
-
-### 1. Prepare the Dataset
-
-**DCLM-28B**
-
-```bash
-sbatch scripts/dataset/download/dclm-28B.sh
-sbatch scripts/dataset/tokenize/dclm-28B-gpt2bpe.sh
-sbatch scripts/dataset/tokenize/dclm-28B-olmoe.sh
-```
-
-### 2. Train the Model
-
-**olmoe-1B-7B**
-
-```bash
-sbatch scripts/train/olmoe-1B-7B.sh
-```
-
-**llama-182M-1.4B**
-
-```bash
-sbatch scripts/train/llama-182M-1.4B.sh
-```
-
-### 3. Evaluate the Model
-
-```bash
+export JOBID=...
 sbatch scripts/evaluate.sh
 ```
