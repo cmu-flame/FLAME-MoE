@@ -2,7 +2,7 @@
 
 **FLAME-MoE** is a transparent, end-to-end research platform for Mixture-of-Experts (MoE) language models. It is designed to facilitate scalable training, evaluation, and experimentation with MoE architectures.
 
-## 🔗 Model Checkpoints
+## 🔗 Model Checkpoints & Experiment Logs
 
 Explore our publicly released checkpoints on Hugging Face:
 
@@ -13,6 +13,8 @@ Explore our publicly released checkpoints on Hugging Face:
 * [FLAME-MoE-115M-459M](https://huggingface.co/CMU-FLAME/FLAME-MoE-115M-459M)
 * [FLAME-MoE-98M-349M](https://huggingface.co/CMU-FLAME/FLAME-MoE-98M-349M)
 * [FLAME-MoE-38M-100M](https://huggingface.co/CMU-FLAME/FLAME-MoE-38M-100M)
+
+We have publicly released the training and evaluation logs for FLAME-MoE models on [Weights & Biases (W&B)](https://wandb.ai/haok/flame-moe).
 
 ---
 
