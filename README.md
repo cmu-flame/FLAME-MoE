@@ -74,9 +74,10 @@ bash scripts/release/flame-moe-38m.sh
 
 ### 5. Evaluate the Model
 
-Replace `...` with your training job ID:
+To evaluate a trained model, set the appropriate job ID and iteration number before submitting the evaluation script:
 
 ```bash
-export JOBID=...; export ITER=...
+export JOBID=...    # Replace with your training job ID
+export ITER=...     # Replace with the iteration to evaluate (e.g., 11029)
 sbatch scripts/evaluate.sh
 ```
