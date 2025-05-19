@@ -16,14 +16,13 @@
 
 source scripts/config.sh
 
-# where to load the captured actives
+# load the captured actives via google cloud
 export TRAIN_JOB_ID=31245
 export TRAIN_JOB_NAME=flame-moe-1.7b
-
-srun scripts/empirical_analysis/modules/expert_coactivation_step1.sh
+bash scripts/empirical_analysis/modules/expert_coactivation_step1.sh
 
 # process each layer inside each checkpoint for FLAME-MoE-1.7B-10.3B
 find $SSD_MOUNT/actives -mindepth 2 -maxdepth 2 -type d | while read -r actives_path; do
     results_path=results/expert-coactivation/flame-moe-1.7b/$(basename $(dirname $actives_path))/$(basename $actives_path).pkl
-    srun python3 scripts/empirical_analysis/modules/expert_coactivation_step2.py --actives-path $actives_path --results-path $results_path
+    python3 scripts/empirical_analysis/modules/expert_coactivation_step2.py --actives-path $actives_path --results-path $results_path
 done
