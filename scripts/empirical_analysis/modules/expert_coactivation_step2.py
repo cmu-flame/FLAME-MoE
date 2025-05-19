@@ -25,7 +25,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--actives-path", type=str, required=True)
     parser.add_argument("--results-path", type=str, required=True)
-    parsed = parser.parse_args()    
+    parsed = parser.parse_args()
+
+    print("actives_path: ", parsed.actives_path)
+    print("results_path: ", parsed.results_path)
 
     # run sanity check
     actives_path = Path(parsed.actives_path)
