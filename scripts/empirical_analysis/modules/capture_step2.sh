@@ -1,5 +1,5 @@
 #!/bin/bash
-# Evaluation launcher script for FLAME-MoE.
+# Launch the evaluation, which traces the top-k router.
 
 export OMP_NUM_THREADS=16
 export TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=true
