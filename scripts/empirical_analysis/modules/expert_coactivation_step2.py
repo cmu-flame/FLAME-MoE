@@ -8,7 +8,7 @@ import pickle
 from tqdm import tqdm
 
 num_experts = 64
-max_workers = 128
+max_workers = 196
 
 def work(actives_file: Path) -> List[List[float]]:
     _, indices = torch.load(actives_file, map_location="cpu")
