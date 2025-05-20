@@ -19,7 +19,7 @@ source scripts/config.sh
 # load the captured actives via google cloud
 export TRAIN_JOB_ID=31066
 export TRAIN_JOB_NAME=flame-moe-290m
-# bash scripts/empirical_analysis/modules/router_saturation_step1.sh
+bash scripts/empirical_analysis/modules/router_saturation_step1.sh
 
 # process each top-k for FLAME-MoE-290M-1.3B
 for moe_router_topk in 1 2 4 8; do
