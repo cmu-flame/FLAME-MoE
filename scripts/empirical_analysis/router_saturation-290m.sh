@@ -22,10 +22,10 @@ export TRAIN_JOB_NAME=flame-moe-290m
 bash scripts/empirical_analysis/modules/router_saturation_step1.sh
 
 # process each top-k for FLAME-MoE-290M-1.3B
-for moe_router_topk in 1 2 4 6; do
+for moe_router_topk in 6 4 2 1; do
     for layer_number in {2..9}; do
         actives_pattern="$SSD_MOUNT/actives/*/$layer_number"
-        results_path=results/router-saturation/flame-moe-290m/$moe_router_topk.pkl
+        results_path=results/router-saturation/flame-moe-290m/$layer_number/$moe_router_topk.pkl
         python3 scripts/empirical_analysis/modules/router_saturation_step2.py --moe-router-topk $moe_router_topk --actives-pattern "$actives_pattern" --results-path $results_path
     done
 done
