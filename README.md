@@ -1,4 +1,4 @@
-# FLAME-MoE: A Transparent End-to-End Research Platform for Mixture-of-Experts Language Models
+# FLAME-MoE :fire:​: A Transparent End-to-End Research Platform for Mixture-of-Experts Language Models
 
 **FLAME-MoE** is a transparent, end-to-end research platform for Mixture-of-Experts (MoE) language models. It is designed to facilitate scalable training, evaluation, and experimentation with MoE architectures.
 
