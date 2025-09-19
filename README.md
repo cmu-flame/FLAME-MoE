@@ -81,3 +81,9 @@ export JOBID=...    # Replace with your training job ID
 export ITER=...     # Replace with the iteration to evaluate (e.g., 11029)
 sbatch scripts/evaluate.sh
 ```
+
+---
+
+### 6. WandB Workspace
+
+All the loss curves during training for both the scaling law studies and the final releases can be found in the following WandB workspace: https://wandb.ai/haok/flame-moe
